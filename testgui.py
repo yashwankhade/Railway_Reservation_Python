@@ -53,7 +53,7 @@ submit= Button(root, text='Show Trains', command=check)
 submit.grid(row=4,column=1)
 
 
-#print(selected_month.get())
+
 root.mainloop()
 
 

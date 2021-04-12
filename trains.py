@@ -28,9 +28,7 @@ def trains(src,dest):
     sql = "Select * from trains_info where src='{}' and dest='{}'".format(src,dest)
     r=Tk()
     mydb= c.execute(sql)
-    # print("=============================================================================================")
-    # print("Train No.\t\tTrain Name\t\tSource\t\tSource Time\t\tDestination\t\tDestination Time\t\tFare")
-    # print("=============================================================================================")
+    
     Label(r, text="Train Number").grid(row=0, column=0)
     Label(r, text="Train Name").grid(row=0, column=1)
     Label(r, text="Source").grid(row=0, column=2)
