@@ -13,7 +13,7 @@ root = Tk()
 root.geometry('500x400')
 
 def check():
-    trains.trains(cmb.get())
+    trains.trains(cmb.get(),cmb1.get())
     date1=date.get().split('/')
     print(date1)
     if int(date1[0])>31:

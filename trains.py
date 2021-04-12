@@ -23,14 +23,10 @@ c.execute("""Insert into trains_info values
     """)
 
 
-def trains(src):
-    sql = "Select * from trains_info where src='{}'".format(src)
+def trains(src,dest):
+    sql = "Select * from trains_info where src='{}' and dest='{}'".format(src,dest)
     r=Tk()
-    mydb = c.execute(sql)
-    for i in mydb:
-        for j in range(len(i)):
-            print(i[j],end='\t')
-        print('')
+    mydb= c.execute(sql)
     # print("=============================================================================================")
     # print("Train No.\t\tTrain Name\t\tSource\t\tSource Time\t\tDestination\t\tDestination Time\t\tFare")
     # print("=============================================================================================")
@@ -41,10 +37,12 @@ def trains(src):
     Label(r, text="Destination").grid(row=0, column=4)
     Label(r, text="Destination Time").grid(row=0, column=5)
     Label(r, text="Fare").grid(row=0, column=6)
+    k=1
     for i in mydb:
         for j in range(len(i)):
-            a= Label(r, text=i[j])
-            a.grid(row=1,column=j)
+            Label(r, text=i[j]).grid(row=1,column=j)
+        k=k+1
+            
 
     #for i in mydb:
 
