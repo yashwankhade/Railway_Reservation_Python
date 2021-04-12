@@ -41,7 +41,7 @@ def trains(src,dest):
     k=1
     for i in mydb:
         for j in range(len(i)):
-            Label(r, text=i[j]).grid(row=1,column=j)
+            Label(r, text=i[j]).grid(row=k,column=j)
         k=k+1
             
 
