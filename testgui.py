@@ -169,6 +169,39 @@ def book_a_ticket():
     root1.mainloop()
     
 
+# Homepage
+def homepage():
+    home = Tk()
+    home.geometry('300x200')
+
+    def showTrains():
+        print("Show trains pressed")
+    
+    def bookTicket():
+        print("Book Ticket pressed")
+
+    def exitBtn():
+        home.destroy()
+        
+    # Welcome Message and Styling To Do
+    Heading = Label(home, text="Welcome to ABC Railways",
+                    font=30, fg='pink', bg='green', justify='center')
+    Heading.grid(row=0, column=0)
+
+    # Show Trains
+    show_trains = Button(home, text='Show Trains', command=showTrains)
+    show_trains.grid(row=3, column=0)
+
+    # Book a Ticket
+    book_ticket = Button(home, text='Book Ticket', command=bookTicket)
+    book_ticket.grid(row=4, column=0)
+
+    # Exit
+    exit_btn = Button(home, text='Exit', command=exitBtn)
+    exit_btn.grid(row=5, column=0)
+
+    home.mainloop()
+
 enter_train_details()
 #book_a_ticket()
 
