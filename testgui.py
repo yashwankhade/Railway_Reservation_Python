@@ -101,9 +101,20 @@ def trains10(src, dest):
     # Return Back Button
     backBtn = Button(r, text="Back", command=goback)
     backBtn.grid(row=k+1, column=0)
+
+    #Book Button
+    backBtn = Button(r, text="Book", command=book_a_ticket)
+    backBtn.grid(row=k+1, column=1)
     
 #Passenger Info 
 def book_a_ticket():
+    def ticket_details(train_num):
+        st= ' Select * from Passenger_info where train_num=%d' % train_num
+        c1=conn1.execute(st)
+        for i in c1:
+            print(i)
+
+
     def cancel():
         root1.destroy()
         homepage()
@@ -117,8 +128,10 @@ def book_a_ticket():
         train_num=train_no.get()
          
         sql= '''Insert Into Passenger_info Values('%s',%d,'%s','%s',%d)''' % (name,int(age),gender,email,int(train_num))
-        c1 = conn1.execute(sql)
+        #c1 = conn1.execute(sql)
         info = c1.execute('select * from Passenger_info')
+        #conn1.commit()
+        ticket_details(int(train_num))
         for i in info:
             print(i)
     root1 = Tk()
@@ -179,7 +192,7 @@ def book_a_ticket():
 # Homepage
 def homepage():
     home = Tk()
-    home.geometry('300x200')
+    home.geometry('300x300')
 
     def showTrains():
         #print("Show trains pressed")
@@ -200,20 +213,23 @@ def homepage():
     Heading.grid(row=0, column=0)
 
     # Show Trains
-    show_trains = Button(home, text='Show Trains', command=showTrains)
+    show_trains = Button(home, text='Show Trains', command=showTrains, bg='yellow', fg="red")
     show_trains.grid(row=3, column=0)
-
+  
     # Book a Ticket
-    book_ticket = Button(home, text='Book Ticket', command=bookTicket)
-    book_ticket.grid(row=4, column=0)
+    book_ticket = Button(home, text='Book Ticket', command=bookTicket, bg="yellow", fg="red")
+    book_ticket.grid(row=5, column=0)
 
     # Exit
-    exit_btn = Button(home, text='Exit', command=exitBtn)
-    exit_btn.grid(row=5, column=0)
+    exit_btn = Button(home, text='Exit', command=exitBtn, width=9, bg="yellow", fg="red")
+    exit_btn.grid(row=7, column=0)
 
     home.mainloop()
 
 homepage()
+
+
+
 
 
 
