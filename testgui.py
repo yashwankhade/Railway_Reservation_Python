@@ -16,10 +16,12 @@ c = conn.cursor()
 conn1 = sqlite3.connect('Passengers.db')
 c1 = conn1.cursor()
 
+#Main window enter src,dest
 def enter_train_details():
     root = Tk()
     root.geometry('500x400')
 
+    #Checking values entered
     def check():
         if cmb.get() == cmb1.get():
             messagebox.showinfo(
@@ -62,10 +64,10 @@ def enter_train_details():
     submit = Button(root, text='Show Trains', command=check)
     submit.grid(row=4, column=1)
 
-    # print(selected_month.get())
+    
     root.mainloop()
 
-
+#Displaying trains for selected src, dest
 def trains10(src, dest):
     sql = "Select * from trains_info where src='{}' and dest='{}'".format(src, dest)
     r = Tk()
@@ -82,7 +84,7 @@ def trains10(src, dest):
         for j in range(len(i)):
             Label(r, text=i[j]).grid(row=k, column=j)
         k = k+1
-   
+    #GO back to main window from train details window
     def goback():
         
         #print("Return Button clicked")
@@ -93,11 +95,12 @@ def trains10(src, dest):
     backBtn = Button(r, text="Back", command=goback)
     backBtn.grid(row=k+1, column=0)
     
-
+#Passenger Info 
 def book_a_ticket():
     def cancel():
         root1.destroy()
         enter_train_details()
+    #Inserting values in Passenger db
     def into_pass():
         
         name=name_entry.get()
@@ -166,8 +169,8 @@ def book_a_ticket():
     root1.mainloop()
     
 
-#enter_train_details()
-book_a_ticket()
+enter_train_details()
+#book_a_ticket()
 
 
 
