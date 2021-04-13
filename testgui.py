@@ -175,10 +175,14 @@ def homepage():
     home.geometry('300x200')
 
     def showTrains():
-        print("Show trains pressed")
+        #print("Show trains pressed")
+        home.destroy()
+        enter_train_details()
     
     def bookTicket():
-        print("Book Ticket pressed")
+        #print("Book Ticket pressed")
+        home.destroy()
+        book_a_ticket()
 
     def exitBtn():
         home.destroy()
@@ -202,9 +206,9 @@ def homepage():
 
     home.mainloop()
 
-enter_train_details()
+#enter_train_details()
 #book_a_ticket()
-
+homepage()
 
 
 
