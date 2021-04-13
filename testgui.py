@@ -1,4 +1,5 @@
 import sqlite3
+import random
 from tkinter import *
 import tkinter
 import tkinter as tk
@@ -120,20 +121,47 @@ def book_a_ticket():
         homepage()
     #Inserting values in Passenger db
     def into_pass():
-        
+        def generate_pnr():
+            low= 10**(8-1)
+            high = (10**8)-1
+            return random.randint(low,high)
         name=name_entry.get()
         age=age_entry.get()
         gender=cmb.get()
         email=email_entry.get()
-        train_num=train_no.get()
-         
-        sql= '''Insert Into Passenger_info Values('%s',%d,'%s','%s',%d)''' % (name,int(age),gender,email,int(train_num))
-        #c1 = conn1.execute(sql)
-        info = c1.execute('select * from Passenger_info')
-        #conn1.commit()
-        ticket_details(int(train_num))
-        for i in info:
-            print(i)
+        train_num=train_no_label.get()
+        if len(name)==0 and age=='0' and gender=='' and email=='' and train_num=='':
+            messagebox.showinfo('',"Please fill all details!")
+        elif name!='' and age=='' and gender=='' and email=='' and train_num=='':
+             messagebox.showinfo('',"Please fill all details!")
+        elif name!='' and age!='' and gender=='' and email=='' and train_num=='':
+             messagebox.showinfo('',"Please fill all details!")
+        elif name!='' and age!='' and gender!='' and email=='' and train_num=='':
+            messagebox.showinfo('',"Please fill all details!")
+        elif name!='' and age!='' and gender!='' and email!='' and train_num=='':
+             messagebox.showinfo('',"Please enter train number!") 
+        
+        else:   
+            # name=name_entry.get()
+            # age=age_entry.get()
+            # gender=cmb.get()
+            # email=email_entry.get()
+            # train_num=train_no.get()
+            pnr = generate_pnr()
+            print(pnr)
+            p1 = 'Select PNR from Passenger_info'
+            pnr_list = c1.execute(p1)
+            for i in pnr_list:
+                print(i)
+            # if pnr in 
+            
+            sql= '''Insert Into Passenger_info Values(%d,'%s',%d,'%s','%s',%d)''' % (pnr,name,int(age),gender,email,int(train_num))
+            #c1 = conn1.execute(sql)
+            info = c1.execute('select * from Passenger_info')
+            #conn1.commit()
+            ticket_details(int(train_num))
+            for i in info:
+                print(i)
     root1 = Tk()
     root1.geometry('600x400')
     root1.title('Book Ticket')
@@ -144,7 +172,7 @@ def book_a_ticket():
 
     # Store name, age, gender, email address
     name = tk.StringVar()
-    age = tk.IntVar()
+    age = tk.StringVar()
     gender = tk.StringVar()
     email = tk.StringVar()
     train_no = tk.StringVar()
@@ -227,6 +255,7 @@ def homepage():
     home.mainloop()
 
 homepage()
+
 
 
 

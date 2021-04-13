@@ -103,12 +103,16 @@ c.execute("""Insert into trains_info values
 #   print(i)
 
 c1.execute("""CREATE TABLE IF NOT EXISTS Passenger_info(
-             train_num Int Primary Key,
+             train_num Int ,
              Name Text,
              Age Int,
              Gender Text,
-             Email Text
+             Email Text,
+             PNR Primary key
            )
             """)
    
-
+#a1= c1.execute('drop table passenger_info')
+# a1= c1.execute('select * from Passenger_info')
+# for i in a1:
+#   print(i)
