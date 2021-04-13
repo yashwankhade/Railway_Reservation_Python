@@ -34,6 +34,10 @@ def enter_train_details():
             messagebox.showinfo("", "Invalid date")
         root.destroy()
 
+    def goHome():
+        root.destroy()
+        homepage()
+
     # Heading
     Heading = Label(root, text="Railway Reservation System",
                     font=30, fg='pink', bg='green', justify='center')
@@ -60,11 +64,15 @@ def enter_train_details():
     date_label.grid(row=3, column=1)
     date = Entry(root)
     date.grid(row=3, column=2)
+
     # Submit Button
     submit = Button(root, text='Show Trains', command=check)
     submit.grid(row=4, column=1)
 
-    
+    # Home Button
+    homebtn = Button(root, text='Home', command = goHome)
+    homebtn.grid(row=4, column=2)
+
     root.mainloop()
 
 #Displaying trains for selected src, dest
@@ -86,7 +94,6 @@ def trains10(src, dest):
         k = k+1
     #GO back to main window from train details window
     def goback():
-        
         #print("Return Button clicked")
         r.destroy()
         enter_train_details()
@@ -99,7 +106,7 @@ def trains10(src, dest):
 def book_a_ticket():
     def cancel():
         root1.destroy()
-        enter_train_details()
+        homepage()
     #Inserting values in Passenger db
     def into_pass():
         
@@ -206,8 +213,6 @@ def homepage():
 
     home.mainloop()
 
-#enter_train_details()
-#book_a_ticket()
 homepage()
 
 
