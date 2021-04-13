@@ -109,6 +109,7 @@ def trains10(src, dest):
     
 #Passenger Info 
 def book_a_ticket():
+    
     def ticket_details(train_num):
         st= ' Select * from Passenger_info where train_num=%d' % train_num
         c1=conn1.execute(st)
@@ -121,6 +122,9 @@ def book_a_ticket():
         homepage()
     #Inserting values in Passenger db
     def into_pass():
+        def validation(email):
+            if '@' not in email:
+                return 'Enter valid email!'
         def generate_pnr():
             low= 10**(8-1)
             high = (10**8)-1
@@ -130,16 +134,21 @@ def book_a_ticket():
         gender=cmb.get()
         email=email_entry.get()
         train_num=train_no_label.get()
+        #messagebox.showinfo('',validation(email))
         if len(name)==0 and age=='0' and gender=='' and email=='' and train_num=='':
-            messagebox.showinfo('',"Please fill all details!")
+            messagebox.showinfo('Error',"Please fill all details!")
         elif name!='' and age=='' and gender=='' and email=='' and train_num=='':
-             messagebox.showinfo('',"Please fill all details!")
+             messagebox.showinfo('Error',"Please fill all details!")
         elif name!='' and age!='' and gender=='' and email=='' and train_num=='':
-             messagebox.showinfo('',"Please fill all details!")
+             messagebox.showinfo('Error',"Please fill all details!")
         elif name!='' and age!='' and gender!='' and email=='' and train_num=='':
-            messagebox.showinfo('',"Please fill all details!")
+            messagebox.showinfo('Error',"Please fill all details!")
         elif name!='' and age!='' and gender!='' and email!='' and train_num=='':
-             messagebox.showinfo('',"Please enter train number!") 
+             messagebox.showinfo('Error',"Please enter train number!") 
+        elif '@' not in email:
+            messagebox.showinfo('Error',"Please enter valid email id!") 
+        elif int(age) not in range(1,100):
+            messagebox.showinfo('Error','Enter valid Age!')
         
         else:   
             # name=name_entry.get()
@@ -154,8 +163,9 @@ def book_a_ticket():
             for i in pnr_list:
                 print(i)
             # if pnr in 
-            
+         
             sql= '''Insert Into Passenger_info Values(%d,'%s',%d,'%s','%s',%d)''' % (pnr,name,int(age),gender,email,int(train_num))
+            print(sql)
             #c1 = conn1.execute(sql)
             info = c1.execute('select * from Passenger_info')
             #conn1.commit()
