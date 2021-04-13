@@ -82,8 +82,9 @@ def trains10(src, dest):
         for j in range(len(i)):
             Label(r, text=i[j]).grid(row=k, column=j)
         k = k+1
-
+   
     def goback():
+        
         #print("Return Button clicked")
         r.destroy()
         enter_train_details()
@@ -91,10 +92,14 @@ def trains10(src, dest):
     # Return Back Button
     backBtn = Button(r, text="Back", command=goback)
     backBtn.grid(row=k+1, column=0)
-
+    
 
 def book_a_ticket():
+    def cancel():
+        root1.destroy()
+        enter_train_details()
     def into_pass():
+        
         name=name_entry.get()
         age=age_entry.get()
         gender=cmb.get()
@@ -156,7 +161,7 @@ def book_a_ticket():
     b1.grid(row=11,column=1)
 
     #Cancel  Button
-    b2=Button(root1,text="Cancel")
+    b2=Button(root1,text="Cancel", command=cancel)
     b2.grid(row=11,column=2)
     root1.mainloop()
     
