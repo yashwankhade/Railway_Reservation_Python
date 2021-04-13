@@ -13,6 +13,8 @@ global src
 conn = sqlite3.connect('trains.db')
 c = conn.cursor()
 
+conn1 = sqlite3.connect('Passengers.db')
+c1 = conn1.cursor()
 
 def enter_train_details():
     root = Tk()
@@ -95,6 +97,18 @@ def trains10(src, dest):
 
 
 def book_a_ticket():
+    def into_pass():
+        name=name_entry.get()
+        age=age_entry.get()
+        gender=cmb.get()
+        email=email_entry.get()
+        train_num=train_no.get()
+         
+        sql= '''Insert Into Passenger_info Values('%s',%d,'%s','%s',%d)''' % (name,int(age),gender,email,int(train_num))
+        c1 = conn1.execute(sql)
+        info = c1.execute('select * from Passenger_info')
+        for i in info:
+            print(i)
     root1 = Tk()
     root1.geometry('600x400')
     root1.title('Book Ticket')
@@ -105,7 +119,7 @@ def book_a_ticket():
 
     # Store name, age, gender, email address
     name = tk.StringVar()
-    age = tk.StringVar()
+    age = tk.IntVar()
     gender = tk.StringVar()
     email = tk.StringVar()
     train_no = tk.StringVar()
@@ -140,9 +154,19 @@ def book_a_ticket():
     train_no_label.grid(row=10, column=2)
     train_no_label.focus()
 
-    root1.mainloop()
+    #Confirm Ticket Button
+    b1=Button(root1,text="Confirm Ticket",command=into_pass)
+    b1.grid(row=11,column=1)
 
-enter_train_details()
-#book_a_ticket()
+    #Cancel  Button
+    b2=Button(root1,text="Cancel")
+    b2.grid(row=11,column=2)
+    root1.mainloop()
+    
+
+#enter_train_details()
+book_a_ticket()
+
+
 
 

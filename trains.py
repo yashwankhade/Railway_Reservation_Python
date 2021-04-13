@@ -1,12 +1,12 @@
 import sqlite3
 from tkinter import *
 
-root = Tk()
+#root = Tk()
 mydb = sqlite3.connect('trains.db')
-
-
 c= mydb.cursor()
 
+mydb_pass = sqlite3.connect('Passengers.db')
+c1 = mydb_pass.cursor()
 c.execute("""CREATE TABLE IF NOT EXISTS trains_info(
             train_num INT Primary key,
             Name Text,
@@ -30,6 +30,13 @@ c.execute("""CREATE TABLE IF NOT EXISTS trains_info(
 #for i in db_info:
 #   print(i)
 
-
+c1.execute("""CREATE TABLE IF NOT EXISTS Passenger_info(
+             train_num Int Primary Key,
+             Name Text,
+             Age Int,
+             Gender Text,
+             Email Text
+           )
+            """)
    
 
