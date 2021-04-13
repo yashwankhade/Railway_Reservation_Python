@@ -94,7 +94,55 @@ def trains10(src, dest):
     backBtn.grid(row=k+1, column=0)
 
 
-enter_train_details()
+def book_a_ticket():
+    root1 = Tk()
+    root1.geometry('600x400')
+    root1.title('Book Ticket')
 
+    # Heading
+    Heading = Label(root1, text="Book Ticket",font=30, fg='pink', bg='green', justify='center')
+    Heading.grid(row=0, column=3)
+
+    # Store name, age, gender, email address
+    name = tk.StringVar()
+    age = tk.StringVar()
+    gender = tk.StringVar()
+    email = tk.StringVar()
+    train_no = tk.StringVar()
+
+    # Name
+    Label(root1, text='Name :').grid(row=2, column=1)
+    name_entry = Entry(root1, textvariable=name)
+    name_entry.grid(row=2,column=2)
+    name_entry.focus()
+
+    # Age
+    Label(root1, text='Age : ').grid(row=4, column=1)
+    age_entry = Entry(root1, textvariable=age)
+    age_entry.grid(row=4, column=2)
+    age_entry.focus()
+
+    # Email
+    Label(root1, text='Email : ').grid(row=6, column=1)
+    email_entry = Entry(root1, textvariable=email)
+    email_entry.grid(row=6, column=2)
+    email_entry.focus()
+
+    # Gender
+    Label(root1, text='Gender : ').grid(row=8, column=1)
+    # Combobox
+    cmb = ttk.Combobox(root1, width="10", values=("M", "F", "Other"), textvariable=gender)
+    cmb.grid(row=8, column=2)
+
+    # Train No
+    Label(root1, text='Train No : ').grid(row=10, column=1)
+    train_no_label = Entry(root1, textvariable=train_no)
+    train_no_label.grid(row=10, column=2)
+    train_no_label.focus()
+
+    root1.mainloop()
+
+enter_train_details()
+#book_a_ticket()
 
 
