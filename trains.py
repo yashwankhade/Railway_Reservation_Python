@@ -3,10 +3,10 @@ from tkinter import *
 
 #root = Tk()
 mydb = sqlite3.connect('trains.db')
-c= mydb.cursor()
+c = mydb.cursor()
 
-mydb_pass = sqlite3.connect('Passengers.db')
-c1 = mydb_pass.cursor()
+#mydb_pass = sqlite3.connect('Passengers.db')
+#c1 = mydb_pass.cursor()
 c.execute("""CREATE TABLE IF NOT EXISTS trains_info(
             train_num INT Primary key,
             Name Text,
@@ -102,13 +102,15 @@ c.execute("""Insert into trains_info values
 #for i in db_info:
 #   print(i)
 
-c1.execute("""CREATE TABLE IF NOT EXISTS Passenger_info(
-             train_num Int ,
+c.execute("""CREATE TABLE IF NOT EXISTS Passenger_info(
+             train_num Int,
              Name Text,
              Age Int,
              Gender Text,
              Email Text,
-             PNR Primary key
+             PNR Primary key,
+             FOREIGN KEY(train_num)
+             References trains_info(train_num)
            )
             """)
    

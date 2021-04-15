@@ -110,8 +110,8 @@ def trains10(src, dest):
 #Passenger Info 
 def book_a_ticket():
     
-    def ticket_details(train_num):
-        st= ' Select * from Passenger_info where train_num=%d' % train_num
+    def ticket_details(pnr):
+        st= ' Select * from Passenger_info where train_num=%d' % pnr
         c1=conn1.execute(st)
         for i in c1:
             print(i)
@@ -119,6 +119,7 @@ def book_a_ticket():
 
     def cancel():
         root1.destroy()
+        
         homepage()
     #Inserting values in Passenger db
     def into_pass():
@@ -135,7 +136,7 @@ def book_a_ticket():
         email=email_entry.get()
         train_num=train_no_label.get()
         #messagebox.showinfo('',validation(email))
-        if len(name)==0 and age=='0' and gender=='' and email=='' and train_num=='':
+        if len(name)==0 or  age=='0' or gender=='' or email=='' or train_num=='':
             messagebox.showinfo('Error',"Please fill all details!")
         elif name!='' and age=='' and gender=='' and email=='' and train_num=='':
              messagebox.showinfo('Error',"Please fill all details!")
@@ -156,20 +157,21 @@ def book_a_ticket():
             # gender=cmb.get()
             # email=email_entry.get()
             # train_num=train_no.get()
+            c1 = conn1.cursor()
             pnr = generate_pnr()
             print(pnr)
-            p1 = 'Select PNR from Passenger_info'
-            pnr_list = c1.execute(p1)
-            for i in pnr_list:
-                print(i)
+            # p1 = 'Select PNR from Passenger_info'
+            # pnr_list = c1.execute(p1)
+            # for i in pnr_list:
+            #     print(i)
             # if pnr in 
          
             sql= '''Insert Into Passenger_info Values(%d,'%s',%d,'%s','%s',%d)''' % (pnr,name,int(age),gender,email,int(train_num))
             print(sql)
-            #c1 = conn1.execute(sql)
+            c1 = conn1.execute(sql)
             info = c1.execute('select * from Passenger_info')
             #conn1.commit()
-            ticket_details(int(train_num))
+            ticket_details(pnr)
             for i in info:
                 print(i)
     root1 = Tk()
