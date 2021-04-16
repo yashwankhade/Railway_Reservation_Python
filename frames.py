@@ -1,9 +1,20 @@
 from tkinter import *
+import sqlite3
+import trains
+
+mydb = sqlite3.connect('trains.db')
+conn = mydb.cursor()
 
 root = Tk()
 def hello1():
-    msg=Label(frame2, text="hello")
-    msg.pack()
+    a= conn.execute('select * from trains_info')
+    k=n=0
+    for i in a:
+        Label(frame2, text=i).grid(row=k, column=0)
+        
+        k=k+1
+        n=n+1
+
 root.geometry('655x355')
 
 frame1=Frame(root, width=100,height=100, highlightbackground='red', highlightthickness=3)
