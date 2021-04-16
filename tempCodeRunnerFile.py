@@ -2,6 +2,13 @@ from tkinter import *
 import tkinter as tk
 from tkinter import ttk
 
+def create_content_frame(container2):
+    frame2 = Frame(container2)
+    frame2.columnconfigure(0, weight=1)
+    frame2.columnconfigure(0, weight=3)
+
+    Label(frame2, text='Just a label').grid(column=0, row=0, sticky=tk.W)
+    return frame2
 
 def create_button_frame(container):
     frame = Frame(container)
@@ -30,6 +37,9 @@ def create_root():
 
     button_frame = create_button_frame(root)
     button_frame.grid(row=0, column=0)
+
+    content_frame = create_content_frame(root)
+    content_frame.grid(row=0, column=1)
     root.mainloop()
 
 create_root()
