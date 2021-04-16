@@ -2,6 +2,7 @@ from tkinter import *
 import tkinter as tk
 from tkinter import ttk
 
+# The right frame : Contains content of each operation
 def create_content_frame(container2):
     frame2 = Frame(container2)
     frame2.columnconfigure(0, weight=1)
@@ -10,6 +11,7 @@ def create_content_frame(container2):
     Label(frame2, text='Just a label').grid(column=0, row=0, sticky=tk.W)
     return frame2
 
+# The left frame : Contains all the buttons to navigate
 def create_button_frame(container):
     frame = Frame(container)
     frame.columnconfigure(0, weight=1)
@@ -25,6 +27,7 @@ def create_button_frame(container):
 
     return frame
 
+# The root window
 def create_root():
 
     root = Tk()
@@ -41,5 +44,6 @@ def create_root():
     content_frame = create_content_frame(root)
     content_frame.grid(row=0, column=1)
     root.mainloop()
+
 
 create_root()
