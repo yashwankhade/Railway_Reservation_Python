@@ -5,7 +5,36 @@ from tkinter.messagebox import showinfo
 from tkinter import messagebox
 import trains
 import sqlite3
+import testgui
 
+def main_page():
+    root = Tk()
+    root.geometry('300x200')
+    root.title('Home')
+
+    # Button functions
+    def guest():
+        root.destroy()
+        homepage()
+    
+    def admin():
+        root.destroy()
+        verification()
+
+    # Heading
+    Head = Label(root, text="Login As",
+                    font=30, fg='pink', bg='green', justify='center')
+    Head.grid(row=0, column=3)
+
+    # Guest Button
+    Guest = Button(root, text='Guest', command=guest)
+    Guest.grid(row=1, column=1)
+
+    # Admin Button
+    Admin = Button(root, text='Admin', command=admin)
+    Admin.grid(row=2, column=1)
+
+    root.mainloop()
 
 mydb = sqlite3.connect('trains.db')
 cursor = mydb.cursor()
@@ -201,4 +230,4 @@ def admin_main():
         widget.grid(padx=0, pady=3)
     root.mainloop()
 
-verification()
+main_page()
