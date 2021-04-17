@@ -1,6 +1,11 @@
 from tkinter import *
 import tkinter as tk
 from tkinter import ttk
+import trains
+
+# Verify Email and password wala function
+
+
 
 def show_passengers():
     print('Show Passengers')
@@ -28,6 +33,14 @@ def add_trains():
     def cancel():
         root.destroy()
         admin_main()
+
+    def reset():
+        num.delete(0, 'end')
+        name.delete(0, 'end')
+        src.delete(0, 'end')
+        dest.delete(0, 'end')
+        stime.delete(0, 'end')
+        dtime.delete(0, 'end')
 
     # Heading
     Heading = Label(root, text="Add Trains",
@@ -67,13 +80,15 @@ def add_trains():
 
     # Add Train Button
     btnAdd = Button(root, text='Add Train', command=add_train)
-    btnAdd.grid(row=10, column=0, padx=20, pady=20)
+    btnAdd.grid(row=10, column=0, padx=7, pady=20)
 
     # Cancel Button
-    btnAdd = Button(root, text='Cancel', command=cancel)
-    btnAdd.grid(row=10, column=1, padx=20, pady=20)
-
-    # CAN WE ADD A RESET BUTTON HERE ?
+    btnCancel = Button(root, text='Cancel', command=cancel)
+    btnCancel.grid(row=10, column=1, padx=7, pady=20)
+    
+    # Reset Button
+    btnReset = Button(root, text='Reset', command=reset)
+    btnReset.grid(row=10, column=2, padx=7, pady=20)
 
     root.mainloop()
 
