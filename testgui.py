@@ -7,7 +7,7 @@ from tkinter import ttk
 from tkinter.messagebox import showinfo
 from tkinter import messagebox
 import trains
-
+import ticket
 global date1
 global src
 
@@ -171,9 +171,10 @@ def book_a_ticket():
             c1 = conn1.execute(sql)
             info = c1.execute('select * from Passenger_info')
             #conn1.commit()
-            ticket_details(pnr)
+            #ticket_details(pnr, train_num)
             for i in info:
                 print(i)
+            ticket.ticket_display(pnr,int(train_num))
     root1 = Tk()
     root1.geometry('600x400')
     root1.title('Book Ticket')

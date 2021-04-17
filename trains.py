@@ -108,9 +108,8 @@ c.execute("""CREATE TABLE IF NOT EXISTS Passenger_info(
              Age Int,
              Gender Text,
              Email Text,
-             PNR Primary key,
-             FOREIGN KEY(train_num)
-             References trains_info(train_num)
+             PNR Primary key
+              
            )
             """)
    
