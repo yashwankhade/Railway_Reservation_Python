@@ -231,7 +231,19 @@ def book_a_ticket():
 # Homepage
 def homepage():
     home = Tk()
-    home.geometry('300x300')
+    window_width = 400
+    window_height = 400
+
+    # get the screen dimension
+    screen_width = home.winfo_screenwidth()
+    screen_height = home.winfo_screenheight()
+
+    # find the center point
+    center_x = int(screen_width/2 - window_width / 2)
+    center_y = int(screen_height/2 - window_height / 2)
+
+    # set the position of the window to the center of the screen
+    home.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
 
     def showTrains():
         #print("Show trains pressed")
@@ -246,22 +258,27 @@ def homepage():
     def exitBtn():
         home.destroy()
         
+    bg = PhotoImage( file = "C:\\Users\\hp\\Desktop\\homepage.png")
+    # Show image using label
+    label1 = Label( home, image = bg)
+    label1.place(x = 0,y = 0, relwidth=1,relheight=1)
+        
     # Welcome Message and Styling To Do
     Heading = Label(home, text="Welcome to ABC Railways",
-                    font=30, fg='pink', bg='green', justify='center')
-    Heading.grid(row=0, column=0)
+                    font=30, fg='misty rose', bg='green4', justify='center')
+    Heading.grid(row=0, column=0,padx=70,pady=40)
 
     # Show Trains
-    show_trains = Button(home, text='Show Trains', command=showTrains, bg='yellow', fg="red")
-    show_trains.grid(row=3, column=0)
+    show_trains = Button(home, text='Show Trains', command=showTrains, bg='gold', fg="red4")
+    show_trains.grid(row=3, column=0,pady=15)
   
     # Book a Ticket
-    book_ticket = Button(home, text='Book Ticket', command=bookTicket, bg="yellow", fg="red")
-    book_ticket.grid(row=5, column=0)
+    book_ticket = Button(home, text='Book Ticket', command=bookTicket, bg="gold", fg="red4")
+    book_ticket.grid(row=5, column=0,pady=15)
 
     # Exit
-    exit_btn = Button(home, text='Exit', command=exitBtn, width=9, bg="yellow", fg="red")
-    exit_btn.grid(row=7, column=0)
+    exit_btn = Button(home, text='Exit', command=exitBtn, width=9, bg="gold", fg="red4")
+    exit_btn.grid(row=7, column=0,pady=15)
 
     home.mainloop()
 
