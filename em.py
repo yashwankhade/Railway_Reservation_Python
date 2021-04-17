@@ -1,21 +1,22 @@
 import smtplib
 
-sender = 'yashpat181001@gmail.com'
+def send_email():
+    sender = 'yashpat181001@gmail.com'
+    sendpass = 'xyz'
 
-sendpass = 'xyz'
-num ='Hardik!'
+    num ='Hardik!'
 
-message =f"""Hello  {num}"""
+    message =f"""Hello  {num}"""
 
-server = smtplib.SMTP('smtp.gmail.com', 587)
+    server = smtplib.SMTP('smtp.gmail.com', 587)
 
-server.starttls()
+    server.starttls()
 
-server.login(sender,sendpass)
+    server.login(sender,sendpass)
 
-print("Logged in")
+    print("Logged in")
 
-address_info = 'hardik.21910521@viit.ac.in'
+    address_info = 'hardik.21910521@viit.ac.in'
 
-server.sendmail(sender, address_info, message)
+    server.sendmail(sender, address_info, message)
 
