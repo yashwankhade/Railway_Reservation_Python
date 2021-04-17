@@ -8,8 +8,6 @@ from tkinter.messagebox import showinfo
 from tkinter import messagebox
 import trains
 import ticket
-global date1
-global src
 
 conn = sqlite3.connect('trains.db')
 c = conn.cursor()

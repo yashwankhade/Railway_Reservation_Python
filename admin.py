@@ -4,7 +4,11 @@ from tkinter import ttk
 from tkinter.messagebox import showinfo
 from tkinter import messagebox
 import trains
+import sqlite3
 
+
+mydb = sqlite3.connect('trains.db')
+cursor = mydb.cursor()
 # Verify Email and password wala function
 def verification():
     root = Tk()
@@ -58,7 +62,18 @@ def show_passengers():
     print('Show Passengers')
 
 def show_trains():
-    print('Show Trains')
+    st = 'Select * from trains_info'
+    a= cursor.execute(st)
+    r = Tk()
+    r.geometry('455x455')
+    k = 1
+    for i in a:
+        for j in range(len(i)):
+            Label(r, text=i[j]).grid(row=k, column=j)
+        k = k+1
+    r.mainloop()
+        
+        
 
 def add_trains():
     root = Tk()
