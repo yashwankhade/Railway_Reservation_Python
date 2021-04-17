@@ -1,9 +1,56 @@
 from tkinter import *
 import tkinter as tk
 from tkinter import ttk
+from tkinter.messagebox import showinfo
+from tkinter import messagebox
 import trains
 
 # Verify Email and password wala function
+def verification():
+    root = Tk()
+    root.geometry('300x200')
+    root.resizable(False, False)
+    root.title('Sign In')
+
+    # store email address and password
+    user = tk.StringVar()
+    passw = tk.StringVar()
+
+    def login_clicked():
+
+        if (username.get()=='Admin' or username.get()=='admin' and password.get()=='abc123'):
+            root.destroy()
+            admin_main()
+        else:
+            username.delete(0, 'end')
+            password.delete(0, 'end')
+            messagebox.showinfo("Error", "Incorrect Username or Password")
+
+    # Sign in frame
+    signin = ttk.Frame(root)
+    signin.pack(padx=10, pady=10, fill='x', expand=True)
+
+    # Username
+    username_label = ttk.Label(signin, text="Username:")
+    username_label.pack(fill='x', expand=True)
+
+    username = ttk.Entry(signin, textvariable=user)
+    username.pack(fill='x', expand=True)
+    username.focus()
+
+    # password
+    password_label = ttk.Label(signin, text="Password:")
+    password_label.pack(fill='x', expand=True)
+
+    password = ttk.Entry(signin, textvariable=passw, show="*")
+    password.pack(fill='x', expand=True)
+
+    # login button
+    login_button = ttk.Button(signin, text="Login", command=login_clicked)
+    login_button.pack(fill='x', expand=True, pady=10)
+
+    root.mainloop()
+
 
 
 
@@ -99,8 +146,9 @@ def cancel_trains():
 
 def admin_main():
     root = Tk()
-    root.geometry('200x200')
+    root.geometry('250x200')
     root.resizable(True, True)
+    root.title('Admin')
 
     def s_passengers():
         #root.destroy()
@@ -138,4 +186,4 @@ def admin_main():
         widget.grid(padx=0, pady=3)
     root.mainloop()
 
-admin_main()
+verification()
