@@ -18,7 +18,20 @@ c1 = conn1.cursor()
 #Main window enter src,dest
 def enter_train_details():
     root = Tk()
-    root.geometry('500x400')
+    root.title("TRAIN DETAILS")
+    traindetail_width = 400
+    traindetail_height = 400
+
+    # get the screen dimension
+    screen2_width = root.winfo_screenwidth()
+    screen2_height = root.winfo_screenheight()
+
+    # find the center point
+    center2_x = int(screen2_width/2 - traindetail_width / 2)
+    center2_y = int(screen2_height/2 - traindetail_height / 2)
+
+    # set the position of the window to the center of the screen
+    root.geometry(f'{traindetail_width}x{traindetail_height}+{center2_x}+{center2_y}')
 
     #Checking values entered
     def check():
@@ -37,40 +50,40 @@ def enter_train_details():
         root.destroy()
         homepage()
 
-    # Heading
+   # Heading
     Heading = Label(root, text="Railway Reservation System",
                     font=30, fg='pink', bg='green', justify='center')
-    Heading.grid(row=0, column=3)
+    Heading.place(x=58, y=25)
 
     # Source
     source = Label(root, text='Source')
-    source.grid(row=1, column=1)
+    source.place(x=90, y=110)
     # Combobox-Source
     cmb = ttk.Combobox(root, width="10", values=(
         "Pune", "Mumbai", "Delhi", "Chennai"))
-    cmb.grid(row=1, column=2)
+    cmb.place(x=180,y=110)
 
     # Destination
     dest = Label(root, text='Destination')
-    dest.grid(row=2, column=1)
+    dest.place(x=90,y=170)
     # Combobox-Dest
     cmb1 = ttk.Combobox(root, width="10", values=(
         "Pune", "Mumbai", "Delhi", "Chennai"))
-    cmb1.grid(row=2, column=2)
+    cmb1.place(x=180,y=170)
 
     # Date
     date_label = Label(root, text="Date")
-    date_label.grid(row=3, column=1)
+    date_label.place(x=90,y=230)
     date = Entry(root)
-    date.grid(row=3, column=2)
+    date.place(x=180, y=230)
 
     # Submit Button
     submit = Button(root, text='Show Trains', command=check)
-    submit.grid(row=4, column=1)
+    submit.place(x=80,y=300)
 
     # Home Button
     homebtn = Button(root, text='Home', command = goHome)
-    homebtn.grid(row=4, column=2)
+    homebtn.place(x=270,y=300)
 
     root.mainloop()
 
@@ -260,10 +273,10 @@ def homepage():
         home.destroy()
         main_page()
         
-    #bg = PhotoImage( file = "C:\\Users\\hp\\Desktop\\homepage.png")
-    # Show image using label
-    #label1 = Label( home, image = bg)
-    #label1.place(x = 0,y = 0, relwidth=1,relheight=1)
+    bg = PhotoImage( file = "C:\\Users\\hp\\Desktop\\homepage.png")
+    #Show image using label
+    label1 = Label( home, image = bg)
+    label1.place(x = 0,y = 0, relwidth=1,relheight=1)
         
     # Welcome Message and Styling To Do
     Heading = Label(home, text="Welcome to ABC Railways",
@@ -294,8 +307,21 @@ def homepage():
 
 def main_page():
     root = Tk()
-    root.geometry('300x200')
-    root.title('Home')
+    root.title('LOGIN')
+
+    login_width = 400
+    login_height = 400
+
+    # get the screen dimension
+    screen1_width = root.winfo_screenwidth()
+    screen1_height = root.winfo_screenheight()
+
+    # find the center point
+    center1_x = int(screen1_width/2 - login_width / 2)
+    center1_y = int(screen1_height/2 - login_height / 2)
+
+    # set the position of the window to the center of the screen
+    root.geometry(f'{login_width}x{login_height}+{center1_x}+{center1_y}')
 
     # Button functions
     def guest():
@@ -309,15 +335,15 @@ def main_page():
     # Heading
     Head = Label(root, text="Login As",
                     font=30, fg='pink', bg='green', justify='center')
-    Head.grid(row=0, column=3)
+    Head.grid(row=0, column=3,padx=150,pady=40)
 
     # Guest Button
     Guest = Button(root, text='Guest', command=guest)
-    Guest.grid(row=1, column=1)
+    Guest.place(x=170,y=130)
 
     # Admin Button
     Admin = Button(root, text='Admin', command=admin)
-    Admin.grid(row=2, column=1)
+    Admin.place(x=166,y=200)
 
     root.mainloop()
 
