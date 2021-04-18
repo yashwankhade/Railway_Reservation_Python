@@ -1,12 +1,51 @@
 import sqlite3
 from sqlite3.dbapi2 import Cursor
 from tkinter import *
-
+import smtplib
+from tkinter import messagebox
+from tkinter.messagebox import showinfo
 mydb = sqlite3.connect('trains.db')
 cursor = mydb.cursor()
 
 
-def ticket_display(pnr,trainno):
+
+def ticket_display(pnr,trainno,p):
+    PNR_NUMB=pnr
+    tn1=trainno
+    def send_email():
+        t=[]
+        p=[]
+        st = 'select * from trains_info where train_num=%d' % tn1
+        a= cursor.execute(st)
+        for i in a:
+            p.append(list(i))
+        print(p)
+        sender = 'a@gmail.com'
+        sendpass = 'xyz'
+
+        num = i[0]
+        name = p[0][1]
+        src= p[0][2]
+        srct = p[0][3]
+        dest= p[0][4]
+        destt=p[0] [5]
+        fare=p[0][6]
+
+        message =f"""Train no.  {num}\nTrain Name: {name}\nSource: {src}\nSource: {src}\n"""
+
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+
+        server.starttls()
+
+        server.login(sender,sendpass)
+
+        print("Logged in")
+
+        address_info = 'yash.21910843@viit.ac.in'
+
+        server.sendmail(sender, address_info, message)
+        messagebox.showinfo('Status','Email Sent Successfully!')
+
    # sql = 'select * from passenger_info where pnr=%d' % pnr
     sql1 = 'select * from trains_info where train_num=%d' % trainno
   #  a = cursor.execute(sql)
@@ -66,12 +105,21 @@ def ticket_display(pnr,trainno):
     dest_t.place(x=290, y=100)
 
 # ========Passenger_info========
-    Label(root, text="Passenger Information", font=30).place(x=130, y=150)
+    st1 = 'Select * from Passenger_info where pnr=%d' % pnr
+    ab=cursor.execute(st1)
+    
+    Label(root, text="Passenger Information", font=30).place(x=110,y=150)
+    pnr= Label(root,text="PNR no.").place(x=30, y=200)
+    name= Label(root,text="Name").place(x=120, y=200)
+    age= Label(root,text="Age").place(x=250, y=200)
+    gender= Label(root,text="Gender").place(x=300, y=200)
+    fare = Label (root, text="Fare").place(x=360,y=200)
+    email= Button(root, text="Get Email", command=send_email).place(x=170, y=300)
 
-    name = Label(root, text="Name").place(x=30, y=200)
-    age = Label(root, text="Age").place(x=90, y=200)
-    gender = Label(root, text="Gender").place(x=150, y=200)
-    pnr = Label(root, text="PNR number").place(x=210, y=200)
-    status = Label(root, text="Status").place(x=300, y=200)
 
+    pnr_no= Label(root,text=p[0][0]).place(x=30,y=220)
+    name_= Label(root,text=p[0][1]).place(x=120,y=220)
+    age_no= Label(root,text=p[0][2]).place(x=250,y=220)
+    gen= Label(root,text=p[0][3]).place(x=300,y=220)
+    fare= Label(root,text=i[6]).place(x=360,y=220)
     root.mainloop()

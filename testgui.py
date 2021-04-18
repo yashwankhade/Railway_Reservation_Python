@@ -183,9 +183,11 @@ def book_a_ticket():
             info = c1.execute('select * from Passenger_info')
             #conn1.commit()
             #ticket_details(pnr, train_num)
+            p=[]
             for i in info:
-                print(i)
-            ticket.ticket_display(pnr,int(train_num))
+                p.append(i)
+            print(p)
+            ticket.ticket_display(pnr,int(train_num),p)
     root1 = Tk()
     root1.geometry('600x400')
     root1.title('Book Ticket')
