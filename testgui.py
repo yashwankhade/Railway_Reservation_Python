@@ -146,6 +146,7 @@ def book_a_ticket():
         gender=cmb.get()
         email=email_entry.get()
         train_num=train_no_label.get()
+        email= email_entry.get()
         #messagebox.showinfo('',validation(email))
         if len(name)==0 or  age=='0' or gender=='' or email=='' or train_num=='':
             messagebox.showinfo('Error',"Please fill all details!")
@@ -181,13 +182,13 @@ def book_a_ticket():
             print(sql)
             c1 = conn1.execute(sql)
             info = c1.execute('select * from Passenger_info')
-            #conn1.commit()
+            #mydb.commit()
             #ticket_details(pnr, train_num)
             p=[]
             for i in info:
-                p.append(i)
+                p.append(list(i))
             print(p)
-            ticket.ticket_display(pnr,int(train_num),p)
+            ticket.ticket_display(pnr,int(train_num),p,email)
     root1 = Tk()
     root1.geometry('600x400')
     root1.title('Book Ticket')
@@ -275,10 +276,10 @@ def homepage():
         home.destroy()
         main_page()
         
-    bg = PhotoImage( file = "C:\\Users\\hp\\Desktop\\homepage.png")
+    #bg = PhotoImage( file = "C:\\Users\\hp\\Desktop\\homepage.png")
     #Show image using label
-    label1 = Label( home, image = bg)
-    label1.place(x = 0,y = 0, relwidth=1,relheight=1)
+    #label1 = Label( home, image = bg)
+    #label1.place(x = 0,y = 0, relwidth=1,relheight=1)
         
     # Welcome Message and Styling To Do
     Heading = Label(home, text="Welcome to ABC Railways",
@@ -419,6 +420,16 @@ def verification():
 
 def show_passengers():
     print('Show Passengers')
+    st = 'select * from Passenger_info'
+    a= cursor.execute(st)
+    r = Tk()
+    r.geometry('455x455')
+    k = 1
+    for i in a:
+        for j in range(len(i)):
+            Label(r, text=i[j]).grid(row=k, column=j)
+        k = k+1
+    r.mainloop()
 
 def show_trains():
     st = 'Select * from trains_info'
@@ -436,7 +447,7 @@ def show_trains():
 
 def add_trains():
     root = Tk()
-    root.geometry('600x600')
+    root.geometry('600x400')
 
     # Defining Inputs
     t_number = tk.StringVar()
@@ -447,9 +458,27 @@ def add_trains():
     t_desttime = tk.StringVar()
     t_fare = tk.StringVar()
 
+    
+
+
+
     # Button functions
     def add_train():
+        tnum= t_number.get()
+        tname= t_name.get()
+        tsrc = src.get()
+        tsrct= t_srctime.get()
+        tdest = dest.get()
+        tdestt = t_desttime.get()
+        tfare= t_fare.get()
         print("Added")
+       
+        st= "insert into trains_info values (%d,'%s','%s','%s','%s','%s',%d)" % (int(tnum),tname,tsrc,tsrct,tdest,tdestt,int(tfare))
+        print(st)
+        cursor.execute(st)
+        #mydb.commit()
+        messagebox.showinfo('Success','Train record added successfully!')
+        print(st)
 
     def cancel():
         root.destroy()
@@ -499,6 +528,11 @@ def add_trains():
     dtime.grid(row=7, column=1)
     dtime.focus()
 
+    Label(root, text='Fare: ').grid(row=8, column=0)
+    fare = Entry(root, textvariable=t_fare)
+    fare.grid(row=8, column=1)
+    fare.focus()
+
     # Add Train Button
     btnAdd = Button(root, text='Add Train', command=add_train)
     btnAdd.grid(row=10, column=0, padx=7, pady=20)
@@ -513,8 +547,30 @@ def add_trains():
 
     root.mainloop()
 
+
+
+    
+
 def cancel_trains():
+    def cancel():
+        messagebox.showinfo('Success','Train record deleted!')
+       
     print('Cancel Trains')
+    a = tk.StringVar()
+    r = Tk()
+    r.geometry('255x255')
+    Label(r, text="Enter Train number").pack()
+    Entry(r, textvariable=a).pack()
+    Button(r,text="Cancel", command=cancel).pack()
+    st = 'Delete from trains_info where train_num=%d' % int(a.get())
+    cursor.execute(st)
+    #mydb.commit()
+    
+     
+    
+    r.mainloop()
+    
+
 
 
 

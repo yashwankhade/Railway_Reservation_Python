@@ -9,29 +9,36 @@ cursor = mydb.cursor()
 
 
 
-def ticket_display(pnr,trainno,p):
+def ticket_display(pnr,trainno,p,email):
     PNR_NUMB=pnr
+    em=email
     tn1=trainno
+    p=p
     def send_email():
         t=[]
-        p=[]
+        
         st = 'select * from trains_info where train_num=%d' % tn1
         a= cursor.execute(st)
         for i in a:
-            p.append(list(i))
-        print(p)
-        sender = 'a@gmail.com'
+            print(i)
+        sender = '@'
         sendpass = 'xyz'
-
+        
         num = i[0]
-        name = p[0][1]
-        src= p[0][2]
-        srct = p[0][3]
-        dest= p[0][4]
-        destt=p[0] [5]
-        fare=p[0][6]
+        name = i[1]
+        src= i[2]
+        srct = i[3]
+        dest= i[4]
+        destt=i[5]
+        fare=i[6]
 
-        message =f"""Train no.  {num}\nTrain Name: {name}\nSource: {src}\nSource: {src}\n"""
+        message =message = f"""From: ABC Railways <from@fromdomain.com>
+To: To Person <{em}>
+Subject: Ticket Details
+
+Train no.: {num}\n\nTrain name:{name}\n\nSource:{src}\t\tSource Time:{srct}\n\nDestination: {dest}\nDestination Time: {destt}\n\nFare: {fare}\n\nPassenger Details\n\nPNR: {p[0][0]}\nName: {p[0][1]}\nAge: {p[0][2]}\nGender: {p[0][3]} 
+"""
+         
 
         server = smtplib.SMTP('smtp.gmail.com', 587)
 
@@ -41,7 +48,7 @@ def ticket_display(pnr,trainno,p):
 
         print("Logged in")
 
-        address_info = 'yash.21910843@viit.ac.in'
+        address_info =  em
 
         server.sendmail(sender, address_info, message)
         messagebox.showinfo('Status','Email Sent Successfully!')

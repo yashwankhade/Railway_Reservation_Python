@@ -11,9 +11,9 @@ c.execute("""CREATE TABLE IF NOT EXISTS trains_info(
             train_num INT Primary key,
             Name Text,
             src Text,
-            src_time blob,
+            src_time Text,
             dest text,
-            dest_time blob,
+            dest_time Text,
             fare INT)
             """)
 
@@ -108,12 +108,13 @@ c.execute("""CREATE TABLE IF NOT EXISTS Passenger_info(
              Age Int,
              Gender Text,
              Email Text,
-             PNR Primary key
+             PNR int Primary key
               
            )
             """)
    
 #a1= c1.execute('drop table passenger_info')
-# a1= c1.execute('select * from Passenger_info')
+#a1= c.execute("delete from Passenger_info where pnr=35785")
+#mydb.commit()
 # for i in a1:
 #   print(i)
