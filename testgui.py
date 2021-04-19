@@ -8,6 +8,7 @@ from tkinter.messagebox import showinfo
 from tkinter import messagebox
 import trains
 import ticket
+from tkcalendar import DateEntry
 
 conn = sqlite3.connect('trains.db')
 c = conn.cursor()
@@ -89,21 +90,70 @@ def enter_train_details():
 
 #Displaying trains for selected src, dest
 def trains10(src, dest):
+    r= Tk()
+    r.geometry('755x455')
+    # sql = "Select * from trains_info where src='{}' and dest='{}'".format(src, dest)
+    # r = Tk()
+    # info = c.execute(sql)
+    # Label(r, text="Train Number").grid(row=0, column=0)
+    # Label(r, text="Train Name").grid(row=0, column=1)
+    # Label(r, text="Source").grid(row=0, column=2)
+    # Label(r, text="Source Time").grid(row=0, column=3)
+    # Label(r, text="Destination").grid(row=0, column=4)
+    # Label(r, text="Destination Time").grid(row=0, column=5)
+    # Label(r, text="Fare").grid(row=0, column=6)
+    # k = 1
+    # for i in info:
+    #     for j in range(len(i)):
+    #         Label(r, text=i[j]).grid(row=k, column=j)
+    #     k = k+1
+    treev = ttk.Treeview(r, selectmode ='browse')
+  
+# Calling pack method w.r.to treeview
+    treev.pack(side ='left')
+  
+# Constructing vertical scrollbar
+# with treeview
+    verscrlbar = ttk.Scrollbar(r, 
+                           orient ="vertical", 
+                           command = treev.yview)
+  
+# Calling pack method w.r.to verical 
+# scrollbar
+    verscrlbar.pack(side ='right', fill ='x')
+  
+# Configuring treeview
+    treev.configure(xscrollcommand = verscrlbar.set)
+  
+# Defining number of columns
+    treev["columns"] = ("1", "2", "3", "4","5","6","7")
+  
+# Defining heading
+    treev['show'] = 'headings'
+  
+# Assigning the width and anchor to  the
+# respective columns
+    treev.column("1", width = 90, anchor ='c')
+    treev.column("2", width = 120, anchor ='ne')
+    treev.column("3", width = 90, anchor ='ne')
+    treev.column("4", width = 90, anchor ='ne')
+    treev.column("5", width = 90, anchor ='ne')
+    treev.column("6", width = 90, anchor ='ne')
+    treev.column("7", width = 90, anchor ='ne')
+  
+# Assigning the heading names to the 
+# respective columns
+    treev.heading("1", text ="Train number")
+    treev.heading("2", text ="Name")
+    treev.heading("3", text ="Source")
+    treev.heading("4", text ="Source Time")
+    treev.heading("5", text ="Destination")
+    treev.heading("6", text ="Destination Time")
+    treev.heading("7", text ="Fare")
     sql = "Select * from trains_info where src='{}' and dest='{}'".format(src, dest)
-    r = Tk()
-    info = c.execute(sql)
-    Label(r, text="Train Number").grid(row=0, column=0)
-    Label(r, text="Train Name").grid(row=0, column=1)
-    Label(r, text="Source").grid(row=0, column=2)
-    Label(r, text="Source Time").grid(row=0, column=3)
-    Label(r, text="Destination").grid(row=0, column=4)
-    Label(r, text="Destination Time").grid(row=0, column=5)
-    Label(r, text="Fare").grid(row=0, column=6)
-    k = 1
-    for i in info:
-        for j in range(len(i)):
-            Label(r, text=i[j]).grid(row=k, column=j)
-        k = k+1
+    result = cursor.execute(sql)
+    for i in result:
+    	treev.insert("", "end", text="", values=(i[0], i[1], i[2], i[3], i[4],i[5],i[6]))
     #GO back to main window from train details window
     def goback():
         #print("Return Button clicked")
@@ -112,12 +162,13 @@ def trains10(src, dest):
 
     # Return Back Button
     backBtn = Button(r, text="Back", command=goback)
-    backBtn.grid(row=k+1, column=0)
+    backBtn.place(x=200,y=400)
 
     #Book Button
-    backBtn = Button(r, text="Book", command=book_a_ticket)
-    backBtn.grid(row=k+1, column=1)
-    
+    bookBtn = Button(r, text="Book", command=book_a_ticket)
+    bookBtn.place(x=400,y=400)
+    r.mainloop()
+
 #Passenger Info 
 def book_a_ticket():
     
@@ -163,12 +214,7 @@ def book_a_ticket():
         elif int(age) not in range(1,100):
             messagebox.showinfo('Error','Enter valid Age!')
         
-        else:   
-            # name=name_entry.get()
-            # age=age_entry.get()
-            # gender=cmb.get()
-            # email=email_entry.get()
-            # train_num=train_no.get()
+        else: 
             c1 = conn1.cursor()
             pnr = generate_pnr()
             print(pnr)
@@ -228,6 +274,13 @@ def book_a_ticket():
     cmb = ttk.Combobox(root1, width="10", values=("M", "F", "Other"), textvariable=gender)
     cmb.grid(row=8, column=2)
 
+    #datetime
+    Label(root1, text='Choose date').grid(row=9, column=1)
+ 
+    cal = DateEntry(root1, width=12, background='darkblue',
+                    foreground='white', borderwidth=2)
+    cal.grid(row=9,column=2) 
+
     # Train No
     Label(root1, text='Train No : ').grid(row=10, column=1)
     train_no_label = Entry(root1, textvariable=train_no)
@@ -276,10 +329,10 @@ def homepage():
         home.destroy()
         main_page()
         
-    #bg = PhotoImage( file = "C:\\Users\\hp\\Desktop\\homepage.png")
+    bg = PhotoImage( file = "./images/homepage.png")
     #Show image using label
-    #label1 = Label( home, image = bg)
-    #label1.place(x = 0,y = 0, relwidth=1,relheight=1)
+    label1 = Label( home, image = bg)
+    label1.place(x = 0,y = 0, relwidth=1,relheight=1)
         
     # Welcome Message and Styling To Do
     Heading = Label(home, text="Welcome to ABC Railways",
@@ -349,11 +402,6 @@ def main_page():
     Admin.place(x=166,y=200)
 
     root.mainloop()
-
-
-
-
-
 
 
 
@@ -481,40 +529,23 @@ def show_trains():
     st = 'Select * from trains_info'
     a= cursor.execute(st)
     r = Tk()
-    r.geometry('655x455')
+    r.geometry('755x455')
     k = 1
-    
+    b = "select count(*) from trains_info"
+    m= cursor.execute(b)
+    for num in m:
+        print(m)
+
     treev = ttk.Treeview(r, selectmode ='browse')
-    # lb1 = tk.Label(r, text="Search:")
-    # lb1.grid(row=0, column=0, padx=10, pady=10, sticky=tk.W)
-    # search_entry = tk.Entry(r, width=15)
-    # search_entry.grid(row=0, column=1, padx=10, pady=10, sticky=tk.E, rowspan=1)
-    # btn = tk.Button(r, text="search", width=10, command=search)
-    # btn.grid(row=0, column=0, padx=10, pady=10, rowspan=2)
-    def search():
-        query = search_entry.get()
-        selections = []
-        for child in treev.get_children():
-            if query in treev.item(child)['values']:   # compare strings in  lower cases.
-                print(treev.item(child)['values'])
-                selections.append(child)
-        print('search completed')
-        messagebox.showinfo('Success','Record Found')
-        treev.selection_set(selections)
-    lb1 = tk.Label(r, text="Search:")
-    lb1.pack()
-    search_entry = tk.Entry(r, width=15)
-    search_entry.pack()
-    btn = tk.Button(r, text="search", width=10, command=search)
-    btn.pack()
+    
+    Label(r, text=f"Number of Trains : {int(str(num[0]))}").place(x=40,y=50)
+    
 # Calling pack method w.r.to treeview
     treev.pack(side ='right')
   
 # Constructing vertical scrollbar
 # with treeview
-    verscrlbar = ttk.Scrollbar(r, 
-                           orient ="vertical", 
-                           command = treev.yview)
+    verscrlbar = ttk.Scrollbar(r, orient ="vertical", command = treev.yview)
   
 # Calling pack method w.r.to verical 
 # scrollbar
@@ -532,11 +563,11 @@ def show_trains():
 # Assigning the width and anchor to  the
 # respective columns
     treev.column("1", width = 90, anchor ='c')
-    treev.column("2", width = 90, anchor ='ne')
+    treev.column("2", width = 140, anchor ='ne')
     treev.column("3", width = 90, anchor ='ne')
     treev.column("4", width = 90, anchor ='ne')
     treev.column("5", width = 90, anchor ='ne')
-    treev.column("6", width = 90, anchor ='ne')
+    treev.column("6", width = 98, anchor ='ne')
     treev.column("7", width = 90, anchor ='ne')
   
 # Assigning the heading names to the 
