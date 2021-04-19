@@ -435,8 +435,79 @@ def show_trains():
     st = 'Select * from trains_info'
     a= cursor.execute(st)
     r = Tk()
-    r.geometry('455x455')
+    r.geometry('655x455')
     k = 1
+    
+    treev = ttk.Treeview(r, selectmode ='browse')
+    # lb1 = tk.Label(r, text="Search:")
+    # lb1.grid(row=0, column=0, padx=10, pady=10, sticky=tk.W)
+    # search_entry = tk.Entry(r, width=15)
+    # search_entry.grid(row=0, column=1, padx=10, pady=10, sticky=tk.E, rowspan=1)
+    # btn = tk.Button(r, text="search", width=10, command=search)
+    # btn.grid(row=0, column=0, padx=10, pady=10, rowspan=2)
+    def search():
+        query = search_entry.get()
+        selections = []
+        for child in treev.get_children():
+            if query in treev.item(child)['values']:   # compare strings in  lower cases.
+                print(treev.item(child)['values'])
+                selections.append(child)
+        print('search completed')
+        messagebox.showinfo('Success','Record Found')
+        treev.selection_set(selections)
+    lb1 = tk.Label(r, text="Search:")
+    lb1.pack()
+    search_entry = tk.Entry(r, width=15)
+    search_entry.pack()
+    btn = tk.Button(r, text="search", width=10, command=search)
+    btn.pack()
+# Calling pack method w.r.to treeview
+    treev.pack(side ='right')
+  
+# Constructing vertical scrollbar
+# with treeview
+    verscrlbar = ttk.Scrollbar(r, 
+                           orient ="vertical", 
+                           command = treev.yview)
+  
+# Calling pack method w.r.to verical 
+# scrollbar
+    verscrlbar.pack(side ='right', fill ='x')
+  
+# Configuring treeview
+    treev.configure(xscrollcommand = verscrlbar.set)
+  
+# Defining number of columns
+    treev["columns"] = ("1", "2", "3","4","5","6","7")
+  
+# Defining heading
+    treev['show'] = 'headings'
+  
+# Assigning the width and anchor to  the
+# respective columns
+    treev.column("1", width = 90, anchor ='c')
+    treev.column("2", width = 90, anchor ='ne')
+    treev.column("3", width = 90, anchor ='ne')
+    treev.column("4", width = 90, anchor ='ne')
+    treev.column("5", width = 90, anchor ='ne')
+    treev.column("6", width = 90, anchor ='ne')
+    treev.column("7", width = 90, anchor ='ne')
+  
+# Assigning the heading names to the 
+# respective columns
+    treev.heading("1", text ="Train no.")
+    treev.heading("2", text ="Name")
+    treev.heading("3", text ="Source")
+    treev.heading("4", text ="Source Time")
+    treev.heading("5", text ="Destination")
+    treev.heading("6", text ="Destination Time")
+    treev.heading("7", text ="Fare")
+
+    a= conn.execute('select * from trains_info')
+    
+    result = a.fetchall()
+    for i in result:
+    	treev.insert("", "end", text="", values=(i[0], i[1], i[2], i[3], i[4],i[5],i[6]))
     for i in a:
         for j in range(len(i)):
             Label(r, text=i[j]).grid(row=k, column=j)

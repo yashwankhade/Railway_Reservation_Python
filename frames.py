@@ -10,15 +10,58 @@ conn = mydb.cursor()
 
 root = Tk()
 def hello1():
-    EmployView=ttk.Treeview(frame2)
-    EmployView['columns']=("firstname","secondname","gender","jobtype","hourlywage")
-    EmployView.grid(row=2,column=1,columnspan=1)
-    EmployView.heading("#0",text="",anchor="w")
-    EmployView.column("#0",anchor="center",width=2)
+    treev = ttk.Treeview(root, selectmode ='browse')
+  
+# Calling pack method w.r.to treeview
+    treev.pack(side ='right')
+  
+# Constructing vertical scrollbar
+# with treeview
+    verscrlbar = ttk.Scrollbar(root, 
+                           orient ="vertical", 
+                           command = treev.yview)
+  
+# Calling pack method w.r.to verical 
+# scrollbar
+    verscrlbar.pack(side ='right', fill ='x')
+  
+# Configuring treeview
+    treev.configure(xscrollcommand = verscrlbar.set)
+  
+# Defining number of columns
+    treev["columns"] = ("1", "2", "3")
+  
+# Defining heading
+    treev['show'] = 'headings'
+  
+# Assigning the width and anchor to  the
+# respective columns
+    treev.column("1", width = 90, anchor ='c')
+    treev.column("2", width = 90, anchor ='ne')
+    treev.column("3", width = 90, anchor ='ne')
+  
+# Assigning the heading names to the 
+# respective columns
+    treev.heading("1", text ="Name")
+    treev.heading("2", text ="Sex")
+    treev.heading("3", text ="Age")
+
     a= conn.execute('select * from trains_info')
+    
     result = a.fetchall()
     for i in result:
-    	EmployView.insert("", "end", text="", values=(i[0], i[1], i[2], i[3], i[4]))
+    	treev.insert("", "end", text="", values=(i[0], i[1], i[2], i[3], i[4]))
+  
+    # EmployView=ttk.Treeview(frame2)
+    # EmployView['columns']=("firstname","secondname","gender","jobtype","hourlywage")
+    # EmployView.grid(row=2,column=1,columnspan=1)
+    # EmployView.heading("#0",text="",anchor="w")
+    # EmployView.column("#0",anchor="center",width=2)
+    # a= conn.execute('select * from trains_info')
+    
+    # result = a.fetchall()
+    # for i in result:
+    # 	EmployView.insert("", "end", text="", values=(i[0], i[1], i[2], i[3], i[4]))
 
     # k=n=0
     # for i in a:
