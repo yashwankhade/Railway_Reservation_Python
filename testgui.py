@@ -41,10 +41,10 @@ def enter_train_details():
                 "Error", "Source and Destination cannot be same")
         else:
             trains10(cmb.get(), cmb1.get())
-        date1 = date.get().split('/')
+        #date1 = date.get().split('/')
         #print(date1)
-        if int(date1[0]) > 31:
-            messagebox.showinfo("", "Invalid date")
+        # if int(date1[0]) > 31:
+        #     messagebox.showinfo("", "Invalid date")
         root.destroy()
 
     def goHome():
@@ -73,10 +73,10 @@ def enter_train_details():
     cmb1.place(x=180,y=170)
 
     # Date
-    date_label = Label(root, text="Date")
-    date_label.place(x=90,y=230)
-    date = Entry(root)
-    date.place(x=180, y=230)
+    # date_label = Label(root, text="Date")
+    # date_label.place(x=90,y=230)
+    # date = Entry(root)
+    # date.place(x=180, y=230)
 
     # Submit Button
     submit = Button(root, text='Show Trains', command=check)
@@ -185,9 +185,6 @@ def book_a_ticket():
         homepage()
     #Inserting values in Passenger db
     def into_pass():
-        def validation(email):
-            if '@' not in email:
-                return 'Enter valid email!'
         def generate_pnr():
             low= 10**(8-1)
             high = (10**8)-1
@@ -198,6 +195,7 @@ def book_a_ticket():
         email=email_entry.get()
         train_num=train_no_label.get()
         email= email_entry.get()
+        date = cal.get_date()
         #messagebox.showinfo('',validation(email))
         if len(name)==0 or  age=='0' or gender=='' or email=='' or train_num=='':
             messagebox.showinfo('Error',"Please fill all details!")
@@ -215,6 +213,7 @@ def book_a_ticket():
             messagebox.showinfo('Error','Enter valid Age!')
         
         else: 
+            print(date)
             c1 = conn1.cursor()
             pnr = generate_pnr()
             print(pnr)
@@ -228,13 +227,13 @@ def book_a_ticket():
             print(sql)
             c1 = conn1.execute(sql)
             info = c1.execute('select * from Passenger_info')
-            #mydb.commit()
+            mydb.commit()
             #ticket_details(pnr, train_num)
             p=[]
             for i in info:
                 p.append(list(i))
             print(p)
-            ticket.ticket_display(pnr,int(train_num),p,email)
+            ticket.ticket_display(pnr,int(train_num),p,email,date)
     root1 = Tk()
     root1.geometry('600x400')
     root1.title('Book Ticket')
@@ -513,6 +512,12 @@ def show_passengers():
     treev.heading("4", text ="Gender")
     treev.heading("5", text ="Email")
     treev.heading("6", text ="PNR")
+    st1= 'Select distinct count(pnr) from passenger_info'
+    b= cursor.execute(st1)
+    for i in b:
+        num=i
+    Label(r, text="Number of Passengers:").place(x=0,y=0)
+    Label(r, text=num).place(x=130,y=0)
     a= conn.execute('select * from passenger_info')
     
     result = a.fetchall()
@@ -624,7 +629,7 @@ def add_trains():
         st= "insert into trains_info values (%d,'%s','%s','%s','%s','%s',%d)" % (int(tnum),tname,tsrc,tsrct,tdest,tdestt,int(tfare))
         print(st)
         cursor.execute(st)
-        #mydb.commit()
+        mydb.commit()
         messagebox.showinfo('Success','Train record added successfully!')
         print(st)
 
@@ -701,18 +706,22 @@ def add_trains():
 
 def cancel_trains():
     def cancel():
-        messagebox.showinfo('Success','Train record deleted!')
+        tno1 = tnum.get()
+        print(tno1)
+        #messagebox.showinfo('Success','Train record deleted!')
        
     print('Cancel Trains')
-    a = tk.StringVar()
     r = Tk()
+    tnum = tk.StringVar()
     r.geometry('255x255')
     Label(r, text="Enter Train number").pack()
-    Entry(r, textvariable=a).pack()
+    Entry(r, textvariable=tnum).pack()
     Button(r,text="Cancel", command=cancel).pack()
-    st = 'Delete from trains_info where train_num=%d' % int(a.get())
-    cursor.execute(st)
-    #mydb.commit()
+    
+    #st = 'Delete from trains_info where train_num=%d' % int(a.get())
+    #cursor.execute(st)
+   # mydb.commit()
+    
     
      
     

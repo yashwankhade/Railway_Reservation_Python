@@ -9,11 +9,12 @@ cursor = mydb.cursor()
 
 
 
-def ticket_display(pnr,trainno,p,email):
+def ticket_display(pnr,trainno,p,email,date):
     PNR_NUMB=pnr
     em=email
     tn1=trainno
     p=p
+    d=date
     def send_email():
         t=[]
         
@@ -21,8 +22,8 @@ def ticket_display(pnr,trainno,p,email):
         a= cursor.execute(st)
         for i in a:
             print(i)
-        sender = 'railwaysabc@gmail.com'
-        sendpass = 'abc@963852741'
+        sender = '@gmail.com'
+        sendpass = 'xyz'
         
         num = i[0]
         name = i[1]
@@ -36,7 +37,7 @@ def ticket_display(pnr,trainno,p,email):
 To: To Person <{em}>
 Subject: Ticket Details
 
-Train no.: {num}\n\nTrain name:{name}\n\nSource:{src}\t\tSource Time:{srct}\n\nDestination: {dest}\nDestination Time: {destt}\n\nFare: {fare}\n\nPassenger Details\n\nPNR: {p[0][0]}\nName: {p[0][1]}\nAge: {p[0][2]}\nGender: {p[0][3]} 
+Date: {d}\nTrain no.: {num}\n\nTrain name:{name}\n\nSource:{src}\t\tSource Time:{srct}\n\nDestination: {dest}\nDestination Time: {destt}\n\nFare: {fare}\n\nPassenger Details\n\nPNR: {p[0][0]}\nName: {p[0][1]}\nAge: {p[0][2]}\nGender: {p[0][3]} 
 """
          
 
@@ -111,11 +112,16 @@ Train no.: {num}\n\nTrain name:{name}\n\nSource:{src}\t\tSource Time:{srct}\n\nD
     dest_t = Label(root, text=i[5])
     dest_t.place(x=290, y=100)
 
+#====date=========
+
+    d1 = Label(root,text="Date").place(x=30,y=130)
+    d2 = Label(root, text=d).place(x=70,y=130)
+
 # ========Passenger_info========
     st1 = 'Select * from Passenger_info where pnr=%d' % pnr
     ab=cursor.execute(st1)
     
-    Label(root, text="Passenger Information", font=30).place(x=110,y=150)
+    Label(root, text="Passenger Information", font=30).place(x=110,y=160)
     pnr= Label(root,text="PNR no.").place(x=30, y=200)
     name= Label(root,text="Name").place(x=120, y=200)
     age= Label(root,text="Age").place(x=250, y=200)
