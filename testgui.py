@@ -423,12 +423,58 @@ def show_passengers():
     st = 'select * from Passenger_info'
     a= cursor.execute(st)
     r = Tk()
-    r.geometry('455x455')
-    k = 1
-    for i in a:
-        for j in range(len(i)):
-            Label(r, text=i[j]).grid(row=k, column=j)
-        k = k+1
+    r.geometry('555x455')
+    treev = ttk.Treeview(r, selectmode ='browse')
+  
+# Calling pack method w.r.to treeview
+    treev.pack(side ='left')
+  
+# Constructing vertical scrollbar
+# with treeview
+    verscrlbar = ttk.Scrollbar(r, 
+                           orient ="vertical", 
+                           command = treev.yview)
+  
+# Calling pack method w.r.to verical 
+# scrollbar
+    verscrlbar.pack(side ='right', fill ='x')
+  
+# Configuring treeview
+    treev.configure(xscrollcommand = verscrlbar.set)
+  
+# Defining number of columns
+    treev["columns"] = ("1", "2", "3", "4" , "5" ,"6")
+  
+# Defining heading
+    treev['show'] = 'headings'
+  
+# Assigning the width and anchor to  the
+# respective columns
+    treev.column("1", width = 90, anchor ='c')
+    treev.column("2", width = 90, anchor ='se')
+    treev.column("3", width = 90, anchor ='se')
+    treev.column("4", width = 90, anchor ='se')
+    treev.column("5", width = 90, anchor ='se')
+    treev.column("6", width = 90, anchor ='se')
+  
+# Assigning the heading names to the 
+# respective columns
+    treev.heading("1", text ="Train no.")
+    treev.heading("2", text ="Name")
+    treev.heading("3", text ="Age")
+    treev.heading("4", text ="Gender")
+    treev.heading("5", text ="Email")
+    treev.heading("6", text ="PNR")
+    a= conn.execute('select * from passenger_info')
+    
+    result = a.fetchall()
+    for i in result:
+    	treev.insert("", "end", text="", values=(i[0], i[1], i[2], i[3], i[4],i[5]))
+    # k = 1
+    # for i in a:
+    #     for j in range(len(i)):
+    #         Label(r, text=i[j]).grid(row=k, column=j)
+    #     k = k+1
     r.mainloop()
 
 def show_trains():

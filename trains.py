@@ -114,6 +114,7 @@ c.execute("""CREATE TABLE IF NOT EXISTS Passenger_info(
             """)
    
 #a1= c1.execute('drop table passenger_info')
+#a1 = c.execute("Insert into passenger_info values(1234,'yash',19,'M','yash',3578567)")
 #a1= c.execute("delete from Passenger_info where pnr=35785")
 #mydb.commit()
 # for i in a1:
