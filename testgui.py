@@ -53,7 +53,7 @@ def enter_train_details():
         root.destroy()
         homepage()
 
-   # Heading
+    # Heading
     Heading = Label(root, text="Railway Reservation System",
                     font=30, fg='pink', bg='green', justify='center')
     Heading.place(x=60, y=25)
@@ -89,9 +89,10 @@ def enter_train_details():
 
 
 
-#Displaying trains for selected src, dest
+# Displaying trains for selected src, dest
 def trains10(src, dest):
     r= Tk()
+<<<<<<< HEAD
 
     r.title("AVAILABLE TRAINS")
 
@@ -109,6 +110,10 @@ def trains10(src, dest):
     # set the position of the window to the center of the screen
     r.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
 
+=======
+    r.geometry('755x455')
+    r.title('Train Details')
+>>>>>>> d8185ba1fb6b6712572a5b5ffaf0d38ed82b5c17
     treev = ttk.Treeview(r, selectmode ='browse')
   
     # Calling pack method w.r.to treeview
@@ -182,7 +187,7 @@ def trains10(src, dest):
 
 
 
-#Passenger Info 
+# Booking a ticket 
 def book_a_ticket():
     
     def ticket_details(pnr):
@@ -319,6 +324,40 @@ def book_a_ticket():
 
 
 
+# Cancel a ticket
+def cancel_a_ticket():
+    root = Tk()
+    root.geometry('300x200')
+    root.title('Cancel Ticket')
+
+    pnr = tk.StringVar()
+
+    def cancel_ticket():
+        print("Ticket cancelled")
+
+    def home():
+        root.destroy()
+        homepage()
+
+    # Enter PNR
+    Label(root, text='Enter PNR No :').grid(row=1, column=0, padx=10)
+    input_pnr = Entry(root, textvariable=pnr)
+    input_pnr.grid(row=2, column=0, padx=10, pady=10)
+
+    # Buttons
+    but1 = Button(root, text='Cancel Ticket', command=cancel_ticket)
+    but1.grid(row=4, column=0)
+
+    but2 = Button(root, text='Home', command=home)
+    but2.grid(row=4, column=2)
+
+    root.mainloop()
+
+
+
+
+
+
 # Homepage
 def homepage():
     home = Tk()
@@ -326,7 +365,7 @@ def homepage():
     home.title("HOME")
     window_width = 400
     window_height = 400
-
+    home.title('Home')
     # get the screen dimension
     screen_width = home.winfo_screenwidth()
     screen_height = home.winfo_screenheight()
@@ -347,6 +386,10 @@ def homepage():
         #print("Book Ticket pressed")
         home.destroy()
         book_a_ticket()
+
+    def cancelTicket():
+        home.destroy()
+        cancel_a_ticket()
 
     def exitBtn():
         home.destroy()
@@ -370,9 +413,13 @@ def homepage():
     book_ticket = Button(home, text='Book Ticket', command=bookTicket, bg="gold", fg="red4")
     book_ticket.grid(row=5, column=0,pady=15)
 
+    # Cancel a Ticket
+    cancel_ticket = Button(home, text='Cancel Ticket', command=cancelTicket, bg="gold", fg="red4")
+    cancel_ticket.grid(row=7, column=0, pady=15)
+
     # Exit
     exit_btn = Button(home, text='Exit', command=exitBtn, width=9, bg="gold", fg="red4")
-    exit_btn.grid(row=7, column=0,pady=15)
+    exit_btn.grid(row=9, column=0,pady=15)
 
     home.mainloop()
 
@@ -737,13 +784,13 @@ def add_trains():
         tdestt = t_desttime.get()
         tfare= t_fare.get()
         print("Added")
-       
         st= "insert into trains_info values (%d,'%s','%s','%s','%s','%s',%d)" % (int(tnum),tname,tsrc,tsrct,tdest,tdestt,int(tfare))
         print(st)
         cursor.execute(st)
         mydb.commit()
         messagebox.showinfo('Success','Train record added successfully!')
-        print(st)
+         
+        
 
     def cancel():
         root.destroy()
@@ -821,8 +868,21 @@ def add_trains():
 def cancel_trains():
     def cancel():
         tno1 = tnum.get()
-        print(tno1)
-        #messagebox.showinfo('Success','Train record deleted!')
+        st1 = 'Select train_num from trains_info'
+        n = cursor.execute(st1)
+        num_list=[]
+        for i in n:
+            num_list.append(i[0])
+        if int(tno1) not in num_list:
+            messagebox.showerror('Error','Train number does not exist')
+        else:
+            st = 'Delete from trains_info where train_num=%d' % int(tno1)
+            print(st)
+            cursor.execute(st)
+            mydb.commit()
+            messagebox.showinfo('Success','Train record deleted!')
+            
+            
        
     print('Cancel Trains')
     r = Tk()
@@ -845,10 +905,6 @@ def cancel_trains():
     Label(r, text="Enter Train number").pack()
     Entry(r, textvariable=tnum).pack()
     Button(r,text="Cancel", command=cancel).pack()
-    
-    #st = 'Delete from trains_info where train_num=%d' % int(a.get())
-    #cursor.execute(st)
-    # mydb.commit()
     
     r.mainloop()
     
