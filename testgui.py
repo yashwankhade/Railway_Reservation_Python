@@ -16,6 +16,10 @@ c = conn.cursor()
 conn1 = sqlite3.connect('Passengers.db')
 c1 = conn1.cursor()
 
+
+
+
+
 #Main window enter src,dest
 def enter_train_details():
     root = Tk()
@@ -44,11 +48,6 @@ def enter_train_details():
             cmb1_value = cmb1.get()
             root.destroy()
             trains10(cmb_value, cmb1_value)
-        #date1 = date.get().split('/')
-        #print(date1)
-        # if int(date1[0]) > 31:
-        #     messagebox.showinfo("", "Invalid date")
-        
 
     def goHome():
         root.destroy()
@@ -75,12 +74,6 @@ def enter_train_details():
         "Pune", "Mumbai", "Delhi", "Chennai"))
     cmb1.place(x=180,y=170)
 
-    # Date
-    # date_label = Label(root, text="Date")
-    # date_label.place(x=90,y=230)
-    # date = Entry(root)
-    # date.place(x=180, y=230)
-
     # Submit Button
     submit = Button(root, text='Show Trains', command=check)
     submit.place(x=80,y=300)
@@ -91,51 +84,41 @@ def enter_train_details():
 
     root.mainloop()
 
+
+
+
+
+
 #Displaying trains for selected src, dest
 def trains10(src, dest):
     r= Tk()
     r.geometry('755x455')
-    # sql = "Select * from trains_info where src='{}' and dest='{}'".format(src, dest)
-    # r = Tk()
-    # info = c.execute(sql)
-    # Label(r, text="Train Number").grid(row=0, column=0)
-    # Label(r, text="Train Name").grid(row=0, column=1)
-    # Label(r, text="Source").grid(row=0, column=2)
-    # Label(r, text="Source Time").grid(row=0, column=3)
-    # Label(r, text="Destination").grid(row=0, column=4)
-    # Label(r, text="Destination Time").grid(row=0, column=5)
-    # Label(r, text="Fare").grid(row=0, column=6)
-    # k = 1
-    # for i in info:
-    #     for j in range(len(i)):
-    #         Label(r, text=i[j]).grid(row=k, column=j)
-    #     k = k+1
     treev = ttk.Treeview(r, selectmode ='browse')
   
-# Calling pack method w.r.to treeview
+    # Calling pack method w.r.to treeview
     treev.pack(side ='left')
   
-# Constructing vertical scrollbar
-# with treeview
+    # Constructing vertical scrollbar
+    # with treeview
     verscrlbar = ttk.Scrollbar(r, 
                            orient ="vertical", 
                            command = treev.yview)
   
-# Calling pack method w.r.to verical 
-# scrollbar
+    # Calling pack method w.r.to verical 
+    # scrollbar
     verscrlbar.pack(side ='right', fill ='x')
   
-# Configuring treeview
+    # Configuring treeview
     treev.configure(xscrollcommand = verscrlbar.set)
   
-# Defining number of columns
+    # Defining number of columns
     treev["columns"] = ("1", "2", "3", "4","5","6","7")
   
-# Defining heading
+    # Defining heading
     treev['show'] = 'headings'
   
-# Assigning the width and anchor to  the
-# respective columns
+    # Assigning the width and anchor to  the
+    # respective columns
     treev.column("1", width = 90, anchor ='c')
     treev.column("2", width = 120, anchor ='ne')
     treev.column("3", width = 90, anchor ='ne')
@@ -144,8 +127,8 @@ def trains10(src, dest):
     treev.column("6", width = 90, anchor ='ne')
     treev.column("7", width = 90, anchor ='ne')
   
-# Assigning the heading names to the 
-# respective columns
+    # Assigning the heading names to the 
+    # respective columns
     treev.heading("1", text ="Train number")
     treev.heading("2", text ="Name")
     treev.heading("3", text ="Source")
@@ -176,6 +159,11 @@ def trains10(src, dest):
     bookBtn.place(x=400,y=400)
     r.mainloop()
 
+
+
+
+
+
 #Passenger Info 
 def book_a_ticket():
     
@@ -184,7 +172,6 @@ def book_a_ticket():
         c1=conn1.execute(st)
         for i in c1:
             print(i)
-
 
     def cancel():
         root1.destroy()
@@ -203,7 +190,6 @@ def book_a_ticket():
         train_num=train_no_label.get()
         email= email_entry.get()
         date = cal.get_date()
-        #messagebox.showinfo('',validation(email))
         if len(name)==0 or  age=='0' or gender=='' or email=='' or train_num=='':
             messagebox.showinfo('Error',"Please fill all details!")
         elif name!='' and age=='' and gender=='' and email=='' and train_num=='':
@@ -224,18 +210,12 @@ def book_a_ticket():
             c1 = conn1.cursor()
             pnr = generate_pnr()
             print(pnr)
-            # p1 = 'Select PNR from Passenger_info'
-            # pnr_list = c1.execute(p1)
-            # for i in pnr_list:
-            #     print(i)
-            # if pnr in 
          
             sql= '''Insert Into Passenger_info Values(%d,'%s',%d,'%s','%s',%d)''' % (pnr,name,int(age),gender,email,int(train_num))
             print(sql)
             c1 = conn1.execute(sql)
             info = c1.execute('select * from Passenger_info')
             mydb.commit()
-            #ticket_details(pnr, train_num)
             p=[]
             for i in info:
                 p.append(list(i))
@@ -304,6 +284,9 @@ def book_a_ticket():
     
 
 
+
+
+
 # Homepage
 def homepage():
     home = Tk()
@@ -335,11 +318,6 @@ def homepage():
         home.destroy()
         main_page()
         
-    #bg = PhotoImage( file = "./images/homepage.png")
-    #Show image using label
-    #label1 = Label( home, image = bg)
-    #label1.place(x = 0,y = 0, relwidth=1,relheight=1)
-        
     # Welcome Message and Styling To Do
     Heading = Label(home, text="Welcome to ABC Railways",
                     font=30, fg='misty rose', bg='green4', justify='center')
@@ -365,8 +343,8 @@ def homepage():
 
 
 
-# MAIN PAGE
 
+# MAIN PAGE
 def main_page():
     root = Tk()
     root.title('LOGIN')
@@ -414,6 +392,13 @@ def main_page():
     Admin.place(x=166,y=200)
 
     root.mainloop()
+
+
+
+
+
+
+
 
 
 
@@ -478,6 +463,9 @@ def verification():
 
 
 
+
+
+
 def show_passengers():
     print('Show Passengers')
     st = 'select * from Passenger_info'
@@ -486,30 +474,30 @@ def show_passengers():
     r.geometry('555x455')
     treev = ttk.Treeview(r, selectmode ='browse')
   
-# Calling pack method w.r.to treeview
+    # Calling pack method w.r.to treeview
     treev.pack(side ='left')
   
-# Constructing vertical scrollbar
-# with treeview
+    # Constructing vertical scrollbar
+    # with treeview
     verscrlbar = ttk.Scrollbar(r, 
                            orient ="vertical", 
                            command = treev.yview)
   
-# Calling pack method w.r.to verical 
-# scrollbar
+    # Calling pack method w.r.to verical 
+    # scrollbar
     verscrlbar.pack(side ='right', fill ='x')
   
-# Configuring treeview
+    # Configuring treeview
     treev.configure(xscrollcommand = verscrlbar.set)
   
-# Defining number of columns
+    # Defining number of columns
     treev["columns"] = ("1", "2", "3", "4" , "5" ,"6")
   
-# Defining heading
+    # Defining heading
     treev['show'] = 'headings'
   
-# Assigning the width and anchor to  the
-# respective columns
+    # Assigning the width and anchor to  the
+    # respective columns
     treev.column("1", width = 90, anchor ='c')
     treev.column("2", width = 90, anchor ='se')
     treev.column("3", width = 90, anchor ='se')
@@ -517,8 +505,8 @@ def show_passengers():
     treev.column("5", width = 90, anchor ='se')
     treev.column("6", width = 90, anchor ='se')
   
-# Assigning the heading names to the 
-# respective columns
+    # Assigning the heading names to the 
+    # respective columns
     treev.heading("1", text ="Train no.")
     treev.heading("2", text ="Name")
     treev.heading("3", text ="Age")
@@ -536,11 +524,6 @@ def show_passengers():
     result = a.fetchall()
     for i in result:
     	treev.insert("", "end", text="", values=(i[0], i[1], i[2], i[3], i[4],i[5]))
-    # k = 1
-    # for i in a:
-    #     for j in range(len(i)):
-    #         Label(r, text=i[j]).grid(row=k, column=j)
-    #     k = k+1
 
     # Back Button
     def btn_back():
@@ -550,6 +533,12 @@ def show_passengers():
     Button(r, text='BACK', command = btn_back).place(x=250, y=350)
     r.mainloop()
     r.mainloop()
+
+
+
+
+
+
 
 def show_trains():
     st = 'Select * from trains_info'
@@ -566,28 +555,28 @@ def show_trains():
     
     Label(r, text=f"Number of Trains : {int(str(num[0]))}").place(x=40,y=50)
     
-# Calling pack method w.r.to treeview
+    # Calling pack method w.r.to treeview
     treev.pack(side ='right')
   
-# Constructing vertical scrollbar
-# with treeview
+    # Constructing vertical scrollbar
+    # with treeview
     verscrlbar = ttk.Scrollbar(r, orient ="vertical", command = treev.yview)
   
-# Calling pack method w.r.to verical 
-# scrollbar
+    # Calling pack method w.r.to verical 
+    # scrollbar
     verscrlbar.pack(side ='right', fill ='x')
   
-# Configuring treeview
+    # Configuring treeview
     treev.configure(xscrollcommand = verscrlbar.set)
   
-# Defining number of columns
+    # Defining number of columns
     treev["columns"] = ("1", "2", "3","4","5","6","7")
   
-# Defining heading
+    # Defining heading
     treev['show'] = 'headings'
   
-# Assigning the width and anchor to  the
-# respective columns
+    # Assigning the width and anchor to  the
+    # respective columns
     treev.column("1", width = 90, anchor ='c')
     treev.column("2", width = 140, anchor ='ne')
     treev.column("3", width = 90, anchor ='ne')
@@ -596,8 +585,8 @@ def show_trains():
     treev.column("6", width = 98, anchor ='ne')
     treev.column("7", width = 90, anchor ='ne')
   
-# Assigning the heading names to the 
-# respective columns
+    # Assigning the heading names to the 
+    # respective columns
     treev.heading("1", text ="Train no.")
     treev.heading("2", text ="Name")
     treev.heading("3", text ="Source")
@@ -624,7 +613,11 @@ def show_trains():
     Button(r, text='BACK', command = btn_back).place(x=400, y=350)
     r.mainloop()
         
-        
+
+
+
+
+
 
 def add_trains():
     root = Tk()
@@ -715,7 +708,7 @@ def add_trains():
     btnAdd.grid(row=10, column=0, padx=7, pady=20)
 
     # Cancel Button
-    btnCancel = Button(root, text='Cancel', command=cancel)
+    btnCancel = Button(root, text='BACK', command=cancel)
     btnCancel.grid(row=10, column=1, padx=7, pady=20)
     
     # Reset Button
@@ -727,6 +720,8 @@ def add_trains():
 
 
     
+
+
 
 def cancel_trains():
     def cancel():
@@ -744,13 +739,12 @@ def cancel_trains():
     
     #st = 'Delete from trains_info where train_num=%d' % int(a.get())
     #cursor.execute(st)
-   # mydb.commit()
-    
-    
-     
+    # mydb.commit()
     
     r.mainloop()
     
+
+
 
 
 
