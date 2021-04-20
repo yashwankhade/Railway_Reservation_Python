@@ -53,7 +53,7 @@ def enter_train_details():
         root.destroy()
         homepage()
 
-   # Heading
+    # Heading
     Heading = Label(root, text="Railway Reservation System",
                     font=30, fg='pink', bg='green', justify='center')
     Heading.place(x=58, y=25)
@@ -89,10 +89,11 @@ def enter_train_details():
 
 
 
-#Displaying trains for selected src, dest
+# Displaying trains for selected src, dest
 def trains10(src, dest):
     r= Tk()
     r.geometry('755x455')
+    r.title('Train Details')
     treev = ttk.Treeview(r, selectmode ='browse')
   
     # Calling pack method w.r.to treeview
@@ -164,7 +165,7 @@ def trains10(src, dest):
 
 
 
-#Passenger Info 
+# Booking a ticket 
 def book_a_ticket():
     
     def ticket_details(pnr):
@@ -287,12 +288,46 @@ def book_a_ticket():
 
 
 
+# Cancel a ticket
+def cancel_a_ticket():
+    root = Tk()
+    root.geometry('300x200')
+    root.title('Cancel Ticket')
+
+    pnr = tk.StringVar()
+
+    def cancel_ticket():
+        print("Ticket cancelled")
+
+    def home():
+        root.destroy()
+        homepage()
+
+    # Enter PNR
+    Label(root, text='Enter PNR No :').grid(row=1, column=0, padx=10)
+    input_pnr = Entry(root, textvariable=pnr)
+    input_pnr.grid(row=2, column=0, padx=10, pady=10)
+
+    # Buttons
+    but1 = Button(root, text='Cancel Ticket', command=cancel_ticket)
+    but1.grid(row=4, column=0)
+
+    but2 = Button(root, text='Home', command=home)
+    but2.grid(row=4, column=2)
+
+    root.mainloop()
+
+
+
+
+
+
 # Homepage
 def homepage():
     home = Tk()
     window_width = 400
     window_height = 400
-
+    home.title('Home')
     # get the screen dimension
     screen_width = home.winfo_screenwidth()
     screen_height = home.winfo_screenheight()
@@ -314,6 +349,10 @@ def homepage():
         home.destroy()
         book_a_ticket()
 
+    def cancelTicket():
+        home.destroy()
+        cancel_a_ticket()
+
     def exitBtn():
         home.destroy()
         main_page()
@@ -331,9 +370,13 @@ def homepage():
     book_ticket = Button(home, text='Book Ticket', command=bookTicket, bg="gold", fg="red4")
     book_ticket.grid(row=5, column=0,pady=15)
 
+    # Cancel a Ticket
+    cancel_ticket = Button(home, text='Cancel Ticket', command=cancelTicket, bg="gold", fg="red4")
+    cancel_ticket.grid(row=7, column=0, pady=15)
+
     # Exit
     exit_btn = Button(home, text='Exit', command=exitBtn, width=9, bg="gold", fg="red4")
-    exit_btn.grid(row=7, column=0,pady=15)
+    exit_btn.grid(row=9, column=0,pady=15)
 
     home.mainloop()
 
