@@ -642,13 +642,13 @@ def add_trains():
         tdestt = t_desttime.get()
         tfare= t_fare.get()
         print("Added")
-       
         st= "insert into trains_info values (%d,'%s','%s','%s','%s','%s',%d)" % (int(tnum),tname,tsrc,tsrct,tdest,tdestt,int(tfare))
         print(st)
         cursor.execute(st)
         mydb.commit()
         messagebox.showinfo('Success','Train record added successfully!')
-        print(st)
+         
+        
 
     def cancel():
         root.destroy()
@@ -726,8 +726,21 @@ def add_trains():
 def cancel_trains():
     def cancel():
         tno1 = tnum.get()
-        print(tno1)
-        #messagebox.showinfo('Success','Train record deleted!')
+        st1 = 'Select train_num from trains_info'
+        n = cursor.execute(st1)
+        num_list=[]
+        for i in n:
+            num_list.append(i[0])
+        if int(tno1) not in num_list:
+            messagebox.showerror('Error','Train number does not exist')
+        else:
+            st = 'Delete from trains_info where train_num=%d' % int(tno1)
+            print(st)
+            cursor.execute(st)
+            mydb.commit()
+            messagebox.showinfo('Success','Train record deleted!')
+            
+            
        
     print('Cancel Trains')
     r = Tk()
@@ -736,10 +749,6 @@ def cancel_trains():
     Label(r, text="Enter Train number").pack()
     Entry(r, textvariable=tnum).pack()
     Button(r,text="Cancel", command=cancel).pack()
-    
-    #st = 'Delete from trains_info where train_num=%d' % int(a.get())
-    #cursor.execute(st)
-    # mydb.commit()
     
     r.mainloop()
     

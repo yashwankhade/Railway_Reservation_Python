@@ -47,7 +47,7 @@ c.execute("""Insert into trains_info values
           (11049,'Kolhapur Express','Mumbai','03:35','Pune','07:40',565),
           (02297,'Pune Duronto','Mumbai','03:50','Pune','07:10',625),         
           
-         (19019,'Fehradun Express','Mumbai','02:17','Delhi','05:25',1440),
+         (19019,'Dehradun Express','Mumbai','02:17','Delhi','05:25',1440),
           (22655,'Tvc Nzm Express','Mumbai','19:25','Delhi','15:55',1490),
          (12471,'Swaraj Express','Mumbai','19:55','Delhi','16:35',1735),
           (12499,'Darshan Express','Mumbai','21:00','Delhi','17:35',1490),
