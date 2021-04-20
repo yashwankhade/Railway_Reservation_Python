@@ -335,10 +335,10 @@ def homepage():
         home.destroy()
         main_page()
         
-    bg = PhotoImage( file = "./images/homepage.png")
+    #bg = PhotoImage( file = "./images/homepage.png")
     #Show image using label
-    label1 = Label( home, image = bg)
-    label1.place(x = 0,y = 0, relwidth=1,relheight=1)
+    #label1 = Label( home, image = bg)
+    #label1.place(x = 0,y = 0, relwidth=1,relheight=1)
         
     # Welcome Message and Styling To Do
     Heading = Label(home, text="Welcome to ABC Railways",
@@ -394,17 +394,23 @@ def main_page():
         root.destroy()
         verification()
 
+    # Image using Label
+    bg = PhotoImage( file = "./images/homepage.png")
+    #Show image using label
+    label1 = Label( root, image = bg)
+    label1.place(x = 0,y = 0, relwidth=1,relheight=1)
+
     # Heading
     Head = Label(root, text="Login As",
                     font=30, fg='pink', bg='green', justify='center')
     Head.grid(row=0, column=3,padx=150,pady=40)
 
     # Guest Button
-    Guest = Button(root, text='Guest', command=guest)
+    Guest = Button(root, text='GUEST', command=guest)
     Guest.place(x=170,y=130)
 
     # Admin Button
-    Admin = Button(root, text='Admin', command=admin)
+    Admin = Button(root, text='ADMIN', command=admin)
     Admin.place(x=166,y=200)
 
     root.mainloop()
