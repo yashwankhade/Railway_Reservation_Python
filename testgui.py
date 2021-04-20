@@ -40,12 +40,15 @@ def enter_train_details():
             messagebox.showinfo(
                 "Error", "Source and Destination cannot be same")
         else:
-            trains10(cmb.get(), cmb1.get())
+            cmb_value = cmb.get()
+            cmb1_value = cmb1.get()
+            root.destroy()
+            trains10(cmb_value, cmb1_value)
         #date1 = date.get().split('/')
         #print(date1)
         # if int(date1[0]) > 31:
         #     messagebox.showinfo("", "Invalid date")
-        root.destroy()
+        
 
     def goHome():
         root.destroy()
@@ -160,12 +163,16 @@ def trains10(src, dest):
         r.destroy()
         enter_train_details()
 
+    def bookTicket():
+        r.destroy()
+        book_a_ticket()
+
     # Return Back Button
     backBtn = Button(r, text="Back", command=goback)
     backBtn.place(x=200,y=400)
 
     #Book Button
-    bookBtn = Button(r, text="Book", command=book_a_ticket)
+    bookBtn = Button(r, text="Book", command=bookTicket)
     bookBtn.place(x=400,y=400)
     r.mainloop()
 
@@ -528,6 +535,14 @@ def show_passengers():
     #     for j in range(len(i)):
     #         Label(r, text=i[j]).grid(row=k, column=j)
     #     k = k+1
+
+    # Back Button
+    def btn_back():
+        r.destroy()
+        admin_main()
+
+    Button(r, text='BACK', command = btn_back).place(x=250, y=350)
+    r.mainloop()
     r.mainloop()
 
 def show_trains():
@@ -594,6 +609,13 @@ def show_trains():
         for j in range(len(i)):
             Label(r, text=i[j]).grid(row=k, column=j)
         k = k+1
+
+    # Back Button
+    def btn_back():
+        r.destroy()
+        admin_main()
+
+    Button(r, text='BACK', command = btn_back).place(x=400, y=350)
     r.mainloop()
         
         
@@ -610,10 +632,6 @@ def add_trains():
     t_srctime = tk.StringVar()
     t_desttime = tk.StringVar()
     t_fare = tk.StringVar()
-
-    
-
-
 
     # Button functions
     def add_train():
@@ -738,11 +756,11 @@ def admin_main():
     root.title('Admin')
 
     def s_passengers():
-        #root.destroy()
+        root.destroy()
         show_passengers()
 
     def s_trains():
-        #root.destroy()
+        root.destroy()
         show_trains()
     
     def a_trains():
@@ -750,7 +768,7 @@ def admin_main():
         add_trains()
 
     def c_trains():
-        #root.destroy()
+        root.destroy()
         cancel_trains()
 
     def logout():
@@ -775,7 +793,6 @@ def admin_main():
     root.mainloop()
 
 main_page()
-
 
 
 
