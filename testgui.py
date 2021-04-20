@@ -56,30 +56,30 @@ def enter_train_details():
    # Heading
     Heading = Label(root, text="Railway Reservation System",
                     font=30, fg='pink', bg='green', justify='center')
-    Heading.place(x=58, y=25)
+    Heading.place(x=60, y=25)
 
     # Source
     source = Label(root, text='Source')
-    source.place(x=90, y=110)
+    source.place(x=90, y=130)
     # Combobox-Source
     cmb = ttk.Combobox(root, width="10", values=(
         "Pune", "Mumbai", "Delhi", "Chennai"))
-    cmb.place(x=180,y=110)
+    cmb.place(x=180,y=130)
 
     # Destination
     dest = Label(root, text='Destination')
-    dest.place(x=90,y=170)
+    dest.place(x=90,y=190)
     # Combobox-Dest
     cmb1 = ttk.Combobox(root, width="10", values=(
         "Pune", "Mumbai", "Delhi", "Chennai"))
-    cmb1.place(x=180,y=170)
+    cmb1.place(x=180,y=190)
 
     # Submit Button
-    submit = Button(root, text='Show Trains', command=check)
+    submit = Button(root, text='Show Trains', command=check,bg="mint cream")
     submit.place(x=80,y=300)
 
     # Home Button
-    homebtn = Button(root, text='Home', command = goHome)
+    homebtn = Button(root, text='Home', command = goHome,bg="mint cream")
     homebtn.place(x=270,y=300)
 
     root.mainloop()
@@ -92,7 +92,23 @@ def enter_train_details():
 #Displaying trains for selected src, dest
 def trains10(src, dest):
     r= Tk()
-    r.geometry('755x455')
+
+    r.title("AVAILABLE TRAINS")
+
+    window_width = 755
+    window_height = 455
+
+    # get the screen dimension
+    screen_width = r.winfo_screenwidth()
+    screen_height = r.winfo_screenheight()
+
+    # find the center point
+    center_x = int(screen_width/2 - window_width / 2)
+    center_y = int(screen_height/2 - window_height / 2)
+
+    # set the position of the window to the center of the screen
+    r.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
+
     treev = ttk.Treeview(r, selectmode ='browse')
   
     # Calling pack method w.r.to treeview
@@ -150,12 +166,14 @@ def trains10(src, dest):
         r.destroy()
         book_a_ticket()
 
+    
+
     # Return Back Button
-    backBtn = Button(r, text="Back", command=goback)
+    backBtn = Button(r, text="Back", command=goback,bg="mint cream")
     backBtn.place(x=200,y=400)
 
     #Book Button
-    bookBtn = Button(r, text="Book", command=bookTicket)
+    bookBtn = Button(r, text="Book", command=bookTicket,bg="mint cream")
     bookBtn.place(x=400,y=400)
     r.mainloop()
 
@@ -222,12 +240,26 @@ def book_a_ticket():
             print(p)
             ticket.ticket_display(pnr,int(train_num),p,email,date)
     root1 = Tk()
-    root1.geometry('600x400')
+    
     root1.title('Book Ticket')
+
+    window_width = 600
+    window_height = 400
+
+    # get the screen dimension
+    screen_width = root1.winfo_screenwidth()
+    screen_height = root1.winfo_screenheight()
+
+    # find the center point
+    center_x = int(screen_width/2 - window_width / 2)
+    center_y = int(screen_height/2 - window_height / 2)
+
+    # set the position of the window to the center of the screen
+    root1.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
 
     # Heading
     Heading = Label(root1, text="Book Ticket",font=30, fg='pink', bg='green', justify='center')
-    Heading.grid(row=0, column=3)
+    Heading.place(x=235, y=10)
 
     # Store name, age, gender, email address
     name = tk.StringVar()
@@ -237,49 +269,49 @@ def book_a_ticket():
     train_no = tk.StringVar()
 
     # Name
-    Label(root1, text='Name :').grid(row=2, column=1)
+    Label(root1, text='Name :').place(x=180, y=60)
     name_entry = Entry(root1, textvariable=name)
-    name_entry.grid(row=2,column=2)
+    name_entry.place(x=270,y=60)
     name_entry.focus()
 
     # Age
-    Label(root1, text='Age : ').grid(row=4, column=1)
+    Label(root1, text='Age : ').place(x=180, y=100)
     age_entry = Entry(root1, textvariable=age)
-    age_entry.grid(row=4, column=2)
+    age_entry.place(x=270, y=100)
     age_entry.focus()
 
     # Email
-    Label(root1, text='Email : ').grid(row=6, column=1)
+    Label(root1, text='Email : ').place(x=180, y=140)
     email_entry = Entry(root1, textvariable=email)
-    email_entry.grid(row=6, column=2)
+    email_entry.place(x=270, y=140)
     email_entry.focus()
 
     # Gender
-    Label(root1, text='Gender : ').grid(row=8, column=1)
+    Label(root1, text='Gender : ').place(x=180,y=180)
     # Combobox
     cmb = ttk.Combobox(root1, width="10", values=("M", "F", "Other"), textvariable=gender)
-    cmb.grid(row=8, column=2)
+    cmb.place(x=270, y=180)
 
     #datetime
-    Label(root1, text='Choose date').grid(row=9, column=1)
+    Label(root1, text='Choose date').place(x=180, y=220)
  
     cal = DateEntry(root1, width=12, background='darkblue',
                     foreground='white', borderwidth=2)
-    cal.grid(row=9,column=2) 
+    cal.place(x=270,y=220) 
 
     # Train No
-    Label(root1, text='Train No : ').grid(row=10, column=1)
+    Label(root1, text='Train No : ').place(x=180, y=260)
     train_no_label = Entry(root1, textvariable=train_no)
-    train_no_label.grid(row=10, column=2)
+    train_no_label.place(x=270, y=260)
     train_no_label.focus()
 
     #Confirm Ticket Button
-    b1=Button(root1,text="Confirm Ticket",command=into_pass)
-    b1.grid(row=11,column=1)
+    b1=Button(root1,text="Confirm Ticket",command=into_pass,bg="mint cream")
+    b1.place(x=180,y=330)
 
     #Cancel  Button
-    b2=Button(root1,text="Cancel", command=cancel)
-    b2.grid(row=11,column=2)
+    b2=Button(root1,text="Cancel", command=cancel,bg="mint cream")
+    b2.place(x=390,y=330)
     root1.mainloop()
     
 
@@ -290,6 +322,8 @@ def book_a_ticket():
 # Homepage
 def homepage():
     home = Tk()
+
+    home.title("HOME")
     window_width = 400
     window_height = 400
 
@@ -317,6 +351,11 @@ def homepage():
     def exitBtn():
         home.destroy()
         main_page()
+
+    bg = PhotoImage( file = "./images/welcomepage1.png")
+    #Show image using label
+    label1 = Label( home, image = bg)
+    label1.place(x = 0,y = 0, relwidth=1,relheight=1)    
         
     # Welcome Message and Styling To Do
     Heading = Label(home, text="Welcome to ABC Railways",
@@ -384,11 +423,11 @@ def main_page():
     Head.grid(row=0, column=3,padx=150,pady=40)
 
     # Guest Button
-    Guest = Button(root, text='GUEST', command=guest)
+    Guest = Button(root, text='GUEST', command=guest,bg="gold",fg="red4")
     Guest.place(x=170,y=130)
 
     # Admin Button
-    Admin = Button(root, text='ADMIN', command=admin)
+    Admin = Button(root, text='ADMIN', command=admin,bg="gold",fg="red4")
     Admin.place(x=166,y=200)
 
     root.mainloop()
@@ -409,7 +448,21 @@ cursor = mydb.cursor()
 # Verify Email and password wala function
 def verification():
     root = Tk()
-    root.geometry('300x200')
+    root.title("VERIFICATON")
+    window_width = 300
+    window_height = 200
+
+    # get the screen dimension
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+
+    # find the center point
+    center_x = int(screen_width/2 - window_width / 2)
+    center_y = int(screen_height/2 - window_height / 2)
+
+    # set the position of the window to the center of the screen
+    root.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
+    
     root.resizable(False, False)
     root.title('Sign In')
 
@@ -471,7 +524,21 @@ def show_passengers():
     st = 'select * from Passenger_info'
     a= cursor.execute(st)
     r = Tk()
-    r.geometry('555x455')
+    r.title("PASSENGERS INFO")
+    window_width = 555
+    window_height = 455
+
+    # get the screen dimension
+    screen_width = r.winfo_screenwidth()
+    screen_height = r.winfo_screenheight()
+
+    # find the center point
+    center_x = int(screen_width/2 - window_width / 2)
+    center_y = int(screen_height/2 - window_height / 2)
+
+    # set the position of the window to the center of the screen
+    r.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
+    
     treev = ttk.Treeview(r, selectmode ='browse')
   
     # Calling pack method w.r.to treeview
@@ -544,7 +611,22 @@ def show_trains():
     st = 'Select * from trains_info'
     a= cursor.execute(st)
     r = Tk()
-    r.geometry('755x455')
+
+    r.title("TRAINS")
+    window_width = 755
+    window_height = 455
+
+    # get the screen dimension
+    screen_width = r.winfo_screenwidth()
+    screen_height = r.winfo_screenheight()
+
+    # find the center point
+    center_x = int(screen_width/2 - window_width / 2)
+    center_y = int(screen_height/2 - window_height / 2)
+
+    # set the position of the window to the center of the screen
+    r.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
+    
     k = 1
     b = "select count(*) from trains_info"
     m= cursor.execute(b)
@@ -621,7 +703,20 @@ def show_trains():
 
 def add_trains():
     root = Tk()
-    root.geometry('600x400')
+    root.title("ADD TRAINS")
+    window_width = 500
+    window_height = 500
+
+    # get the screen dimension
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+
+    # find the center point
+    center_x = int(screen_width/2 - window_width / 2)
+    center_y = int(screen_height/2 - window_height / 2)
+
+    # set the position of the window to the center of the screen
+    root.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
 
     # Defining Inputs
     t_number = tk.StringVar()
@@ -665,55 +760,55 @@ def add_trains():
     # Heading
     Heading = Label(root, text="Add Trains",
                     font=30, fg='pink', bg='green', justify='center')
-    Heading.grid(row=0, column=3)
+    Heading.place(x=180, y=20)
 
     # Add Train Details
-    Label(root, text='Train Number: ').grid(row=2, column=0)
+    Label(root, text='Train Number: ').place(x=100, y=80)
     num = Entry(root, textvariable=t_number)
-    num.grid(row=2, column=1)
+    num.place(x=250, y=80)
     num.focus()
 
-    Label(root, text='Train Name: ').grid(row=3, column=0)
+    Label(root, text='Train Name: ').place(x=100, y=120)
     name = Entry(root, textvariable=t_name)
-    name.grid(row=3, column=1)
+    name.place(x=250, y=120)
     name.focus()
 
-    Label(root, text='Source: ').grid(row=4, column=0)
+    Label(root, text='Source: ').place(x=100, y=160)
     src = ttk.Combobox(root, width="10", values=(
         "Pune", "Mumbai", "Delhi", "Chennai"))
-    src.grid(row=4, column=1)
+    src.place(x=250, y=160)
 
-    Label(root, text='Destination: ').grid(row=5, column=0)
+    Label(root, text='Destination: ').place(x=100, y=200)
     dest = ttk.Combobox(root, width="10", values=(
         "Pune", "Mumbai", "Delhi", "Chennai"))
-    dest.grid(row=5, column=1)
+    dest.place(x=250, y=200)
     
-    Label(root, text='Source Time: ').grid(row=6, column=0)
+    Label(root, text='Source Time: ').place(x=100, y=240)
     stime = Entry(root, textvariable=t_srctime)
-    stime.grid(row=6, column=1)
+    stime.place(x=250, y=240)
     stime.focus()
 
-    Label(root, text='Destination Time: ').grid(row=7, column=0)
+    Label(root, text='Destination Time: ').place(x=100,y=280)
     dtime = Entry(root, textvariable=t_desttime)
-    dtime.grid(row=7, column=1)
+    dtime.place(x=250, y=280)
     dtime.focus()
 
-    Label(root, text='Fare: ').grid(row=8, column=0)
+    Label(root, text='Fare: ').place(x=100, y=320)
     fare = Entry(root, textvariable=t_fare)
-    fare.grid(row=8, column=1)
+    fare.place(x=250, y=320)
     fare.focus()
 
     # Add Train Button
     btnAdd = Button(root, text='Add Train', command=add_train)
-    btnAdd.grid(row=10, column=0, padx=7, pady=20)
+    btnAdd.place(x=120,y=380)
 
     # Cancel Button
     btnCancel = Button(root, text='BACK', command=cancel)
-    btnCancel.grid(row=10, column=1, padx=7, pady=20)
+    btnCancel.place(x=230,y=380)
     
     # Reset Button
     btnReset = Button(root, text='Reset', command=reset)
-    btnReset.grid(row=10, column=2, padx=7, pady=20)
+    btnReset.place(x=320,y=380)
 
     root.mainloop()
 
@@ -731,8 +826,22 @@ def cancel_trains():
        
     print('Cancel Trains')
     r = Tk()
+    r.title("CANCEL TRAINS")
     tnum = tk.StringVar()
-    r.geometry('255x255')
+    window_width = 255
+    window_height = 255
+
+    # get the screen dimension
+    screen_width = r.winfo_screenwidth()
+    screen_height = r.winfo_screenheight()
+
+    # find the center point
+    center_x = int(screen_width/2 - window_width / 2)
+    center_y = int(screen_height/2 - window_height / 2)
+
+    # set the position of the window to the center of the screen
+    r.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
+    
     Label(r, text="Enter Train number").pack()
     Entry(r, textvariable=tnum).pack()
     Button(r,text="Cancel", command=cancel).pack()
@@ -751,7 +860,20 @@ def cancel_trains():
 
 def admin_main():
     root = Tk()
-    root.geometry('250x200')
+    window_width = 300
+    window_height = 300
+
+    # get the screen dimension
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+
+    # find the center point
+    center_x = int(screen_width/2 - window_width / 2)
+    center_y = int(screen_height/2 - window_height / 2)
+
+    # set the position of the window to the center of the screen
+    root.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
+    
     root.resizable(True, True)
     root.title('Admin')
 
@@ -778,15 +900,15 @@ def admin_main():
         
     # Making buttons
     btn1 = Button(root, text='Show Passengers', command=s_passengers)
-    btn1.grid(row=0, column=0)
+    btn1.place(x=200, y=10)
     btn2 = Button(root, text='Show Trains', command=s_trains)
-    btn2.grid(row=1, column=0)
+    btn2.place(x=120, y=40)
     btn3 = Button(root, text='Add Trains', command=a_trains)
-    btn3.grid(row=2, column=0)
+    btn3.place(x=110, y=70)
     btn4 = Button(root, text='Cancel Trains', command=c_trains)
-    btn4.grid(row=3, column=0)
+    btn4.place(x=110, y=100)
     btn5 = Button(root, text='Logout', command=logout)
-    btn5.grid(row=4, column=0)
+    btn5.place(x=120, y=130)
 
     for widget in root.winfo_children():
         widget.grid(padx=0, pady=3)
