@@ -92,28 +92,8 @@ def enter_train_details():
 # Displaying trains for selected src, dest
 def trains10(src, dest):
     r= Tk()
-<<<<<<< HEAD
-
-    r.title("AVAILABLE TRAINS")
-
-    window_width = 755
-    window_height = 455
-
-    # get the screen dimension
-    screen_width = r.winfo_screenwidth()
-    screen_height = r.winfo_screenheight()
-
-    # find the center point
-    center_x = int(screen_width/2 - window_width / 2)
-    center_y = int(screen_height/2 - window_height / 2)
-
-    # set the position of the window to the center of the screen
-    r.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
-
-=======
     r.geometry('755x455')
     r.title('Train Details')
->>>>>>> d8185ba1fb6b6712572a5b5ffaf0d38ed82b5c17
     treev = ttk.Treeview(r, selectmode ='browse')
   
     # Calling pack method w.r.to treeview
@@ -326,14 +306,22 @@ def book_a_ticket():
 
 # Cancel a ticket
 def cancel_a_ticket():
+    def cancel_ticket():
+        p = pnr.get()
+        print(p)
+        st = 'Delete from passenger_info where pnr=%d' % int(p)
+        cursor.execute(st)
+        mydb.commit()
+        pnr.set('')
+        messagebox.showinfo('Success','Ticket Cancellation Successful!')
+        print("Ticket cancelled")
     root = Tk()
     root.geometry('300x200')
     root.title('Cancel Ticket')
 
     pnr = tk.StringVar()
 
-    def cancel_ticket():
-        print("Ticket cancelled")
+    
 
     def home():
         root.destroy()
