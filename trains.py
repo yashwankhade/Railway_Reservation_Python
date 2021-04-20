@@ -1,12 +1,9 @@
 import sqlite3
 from tkinter import *
 
-#root = Tk()
 mydb = sqlite3.connect('trains.db')
 c = mydb.cursor()
 
-#mydb_pass = sqlite3.connect('Passengers.db')
-#c1 = mydb_pass.cursor()
 c.execute("""CREATE TABLE IF NOT EXISTS trains_info(
             train_num INT Primary key,
             Name Text,
@@ -112,10 +109,11 @@ c.execute("""CREATE TABLE IF NOT EXISTS Passenger_info(
               
            )
             """)
-   
-#a1= c1.execute('drop table passenger_info')
-#a1 = c.execute("Insert into passenger_info values(1234,'yash',19,'M','yash',3578567)")
-#a1= c.execute("delete from Passenger_info where pnr=35785")
-#mydb.commit()
-# for i in a1:
-#   print(i)
+
+src='Pune'
+dest ='Mumbai'
+sql1 = "Select count(trains_num) from trains_info where src='Mumbai' and dest='Pune'"
+print(sql1)
+for j in sql1:
+      num=j
+print(num)

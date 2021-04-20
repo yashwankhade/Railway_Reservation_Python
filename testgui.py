@@ -6,18 +6,11 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter.messagebox import showinfo
 from tkinter import messagebox
-import trains
 import ticket
 from tkcalendar import DateEntry
 
 conn = sqlite3.connect('trains.db')
 c = conn.cursor()
-
-conn1 = sqlite3.connect('Passengers.db')
-c1 = conn1.cursor()
-
-
-
 
 
 #Main window enter src,dest
@@ -92,7 +85,7 @@ def enter_train_details():
 # Displaying trains for selected src, dest
 def trains10(src, dest):
     r= Tk()
-    r.geometry('755x455')
+    r.geometry('720x455')
     r.title('Train Details')
     treev = ttk.Treeview(r, selectmode ='browse')
   
@@ -121,12 +114,12 @@ def trains10(src, dest):
     # Assigning the width and anchor to  the
     # respective columns
     treev.column("1", width = 90, anchor ='c')
-    treev.column("2", width = 120, anchor ='ne')
-    treev.column("3", width = 90, anchor ='ne')
-    treev.column("4", width = 90, anchor ='ne')
-    treev.column("5", width = 90, anchor ='ne')
-    treev.column("6", width = 90, anchor ='ne')
-    treev.column("7", width = 90, anchor ='ne')
+    treev.column("2", width = 120, anchor ='c')
+    treev.column("3", width = 90, anchor ='c')
+    treev.column("4", width = 90, anchor ='c')
+    treev.column("5", width = 90, anchor ='c')
+    treev.column("6", width = 110, anchor ='c')
+    treev.column("7", width = 90, anchor ='c')
   
     # Assigning the heading names to the 
     # respective columns
@@ -138,6 +131,12 @@ def trains10(src, dest):
     treev.heading("6", text ="Destination Time")
     treev.heading("7", text ="Fare")
     sql = "Select * from trains_info where src='{}' and dest='{}'".format(src, dest)
+    sql1 = "Select count(*) from trains_info where src='{}' and dest='{}'".format(src, dest)
+    no = cursor.execute(sql1)
+    for j in no:
+        num=j
+    Label(r,text="Number of trains available: ").place(x=100,y=50)
+    Label(r,text=num).place(x=260,y=50)
     result = cursor.execute(sql)
     for i in result:
     	treev.insert("", "end", text="", values=(i[0], i[1], i[2], i[3], i[4],i[5],i[6]))
@@ -169,12 +168,6 @@ def trains10(src, dest):
 
 # Booking a ticket 
 def book_a_ticket():
-    
-    def ticket_details(pnr):
-        st= ' Select * from Passenger_info where train_num=%d' % pnr
-        c1=conn1.execute(st)
-        for i in c1:
-            print(i)
 
     def cancel():
         root1.destroy()
@@ -209,19 +202,15 @@ def book_a_ticket():
             messagebox.showinfo('Error','Enter valid Age!')
         
         else: 
-            print(date)
-            c1 = conn1.cursor()
             pnr = generate_pnr()
-            print(pnr)
-         
-            sql= '''Insert Into Passenger_info Values(%d,'%s',%d,'%s','%s',%d)''' % (pnr,name,int(age),gender,email,int(train_num))
+            sql= '''Insert Into Passenger_info Values(%d,'%s',%d,'%s','%s',%d)''' % (int(train_num),name,int(age),gender,email,int(pnr))
             print(sql)
-            c1 = conn1.execute(sql)
-            info = c1.execute('select * from Passenger_info')
+            cursor.execute(sql)
+            info = cursor.execute('select * from Passenger_info')
             mydb.commit()
             p=[]
             for i in info:
-                p.append(list(i))
+                p.insert(0,i)
             print(p)
             ticket.ticket_display(pnr,int(train_num),p,email,date)
     root1 = Tk()
@@ -308,13 +297,19 @@ def book_a_ticket():
 def cancel_a_ticket():
     def cancel_ticket():
         p = pnr.get()
-        print(p)
-        st = 'Delete from passenger_info where pnr=%d' % int(p)
-        cursor.execute(st)
-        mydb.commit()
-        pnr.set('')
-        messagebox.showinfo('Success','Ticket Cancellation Successful!')
-        print("Ticket cancelled")
+        s = 'select pnr from passenger_info'
+        pnr_list=[]
+        pnr_l = cursor.execute(s)
+        for i in pnr_l:
+            pnr_list.append(i[0])
+        if int(p) not in pnr_list:
+            messagebox.showerror('Error','PNR number invalid!')
+        else:
+            st = 'Delete from passenger_info where pnr=%d' % int(p)
+            cursor.execute(st)
+            mydb.commit()
+            pnr.set('')
+            messagebox.showinfo('Success','Ticket Cancellation Successful!')
     root = Tk()
     root.geometry('300x200')
     root.title('Cancel Ticket')
@@ -560,8 +555,8 @@ def show_passengers():
     a= cursor.execute(st)
     r = Tk()
     r.title("PASSENGERS INFO")
-    window_width = 555
-    window_height = 455
+    window_width = 655
+    window_height = 355
 
     # get the screen dimension
     screen_width = r.winfo_screenwidth()
@@ -601,11 +596,11 @@ def show_passengers():
     # Assigning the width and anchor to  the
     # respective columns
     treev.column("1", width = 90, anchor ='c')
-    treev.column("2", width = 90, anchor ='se')
-    treev.column("3", width = 90, anchor ='se')
-    treev.column("4", width = 90, anchor ='se')
-    treev.column("5", width = 90, anchor ='se')
-    treev.column("6", width = 90, anchor ='se')
+    treev.column("2", width = 120, anchor ='c')
+    treev.column("3", width = 90, anchor ='c')
+    treev.column("4", width = 90, anchor ='c')
+    treev.column("5", width = 150, anchor ='c')
+    treev.column("6", width = 90, anchor ='c')
   
     # Assigning the heading names to the 
     # respective columns
@@ -619,8 +614,8 @@ def show_passengers():
     b= cursor.execute(st1)
     for i in b:
         num=i
-    Label(r, text="Number of Passengers:").place(x=0,y=0)
-    Label(r, text=num).place(x=130,y=0)
+    Label(r, text="Number of Passengers :").place(x=200,y=30)
+    Label(r, text=num).place(x=330,y=30)
     a= conn.execute('select * from passenger_info')
     
     result = a.fetchall()
@@ -666,14 +661,15 @@ def show_trains():
     b = "select count(*) from trains_info"
     m= cursor.execute(b)
     for num in m:
-        print(m)
+        #print(num)
+        pass
 
     treev = ttk.Treeview(r, selectmode ='browse')
     
-    Label(r, text=f"Number of Trains : {int(str(num[0]))}").place(x=40,y=50)
+    Label(r, text=f"Number of Trains : {int(str(num[0]))}").place(x=100,y=50)
     
     # Calling pack method w.r.to treeview
-    treev.pack(side ='right')
+    treev.pack(side ='left')
   
     # Constructing vertical scrollbar
     # with treeview
@@ -695,12 +691,12 @@ def show_trains():
     # Assigning the width and anchor to  the
     # respective columns
     treev.column("1", width = 90, anchor ='c')
-    treev.column("2", width = 140, anchor ='ne')
-    treev.column("3", width = 90, anchor ='ne')
-    treev.column("4", width = 90, anchor ='ne')
-    treev.column("5", width = 90, anchor ='ne')
-    treev.column("6", width = 98, anchor ='ne')
-    treev.column("7", width = 90, anchor ='ne')
+    treev.column("2", width = 140, anchor ='c')
+    treev.column("3", width = 90, anchor ='c')
+    treev.column("4", width = 90, anchor ='c')
+    treev.column("5", width = 90, anchor ='c')
+    treev.column("6", width = 98, anchor ='c')
+    treev.column("7", width = 90, anchor ='c')
   
     # Assigning the heading names to the 
     # respective columns
@@ -717,11 +713,6 @@ def show_trains():
     result = a.fetchall()
     for i in result:
     	treev.insert("", "end", text="", values=(i[0], i[1], i[2], i[3], i[4],i[5],i[6]))
-    for i in a:
-        for j in range(len(i)):
-            Label(r, text=i[j]).grid(row=k, column=j)
-        k = k+1
-
     # Back Button
     def btn_back():
         r.destroy()
@@ -756,8 +747,6 @@ def add_trains():
     # Defining Inputs
     t_number = tk.StringVar()
     t_name = tk.StringVar()
-    t_src = tk.StringVar()
-    t_dest = tk.StringVar()
     t_srctime = tk.StringVar()
     t_desttime = tk.StringVar()
     t_fare = tk.StringVar()

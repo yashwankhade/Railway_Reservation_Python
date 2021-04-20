@@ -4,6 +4,7 @@ from tkinter import *
 import smtplib
 from tkinter import messagebox
 from tkinter.messagebox import showinfo
+
 mydb = sqlite3.connect('trains.db')
 cursor = mydb.cursor()
 
@@ -22,8 +23,8 @@ def ticket_display(pnr,trainno,p,email,date):
         a= cursor.execute(st)
         for i in a:
             print(i)
-        sender = 'abcrailways479@gmail.com'
-        sendpass = 'abcd$7134@09'
+        sender = '@gmail.com'
+        sendpass = ''
         
         num = i[0]
         name = i[1]
@@ -34,10 +35,10 @@ def ticket_display(pnr,trainno,p,email,date):
         fare=i[6]
 
         message =message = f"""From: ABC Railways <from@fromdomain.com>
-To: To Person <{em}>
+To: <{em}>
 Subject: Ticket Details
 
-Date: {d}\nTrain no.: {num}\n\nTrain name:{name}\n\nSource:{src}\t\tSource Time:{srct}\n\nDestination: {dest}\nDestination Time: {destt}\n\nFare: {fare}\n\nPassenger Details\n\nPNR: {p[0][0]}\nName: {p[0][1]}\nAge: {p[0][2]}\nGender: {p[0][3]} 
+Date: {d}\nTrain no. : {num}\n\nTrain name: {name}\n\nSource: {src}\t\tSource Time: {srct}\n\nDestination: {dest}\nDestination Time: {destt}\n\nFare: {fare}\n\nPassenger Details\n\nPNR: {p[0][0]}\nName: {p[0][1]}\nAge: {p[0][2]}\nGender: {p[0][3]} 
 """
          
 
