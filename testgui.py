@@ -7,6 +7,9 @@ from tkinter import ttk
 from tkinter.messagebox import showinfo
 from tkinter import messagebox
 import ticket
+import pandas as pd
+from pandas import ExcelWriter
+from pandas import ExcelFile
 from tkcalendar import DateEntry
 
 conn = sqlite3.connect('trains.db')
@@ -556,7 +559,7 @@ def show_passengers():
     r = Tk()
     r.title("PASSENGERS INFO")
     window_width = 655
-    window_height = 355
+    window_height = 455
 
     # get the screen dimension
     screen_width = r.winfo_screenwidth()
@@ -626,8 +629,15 @@ def show_passengers():
     def btn_back():
         r.destroy()
         admin_main()
+    
+    def download():
+            df = pd.read_sql_query('select * from passenger_info',mydb)
+            writer = ExcelWriter('Passenger_info.xlsx')
+            df.to_excel(writer,'Sheet1',index=False)
+            writer.save()
 
-    Button(r, text='BACK', command = btn_back).place(x=250, y=350)
+    Button(r, text='BACK', command = btn_back).place(x=450, y=350)
+    Button(r, text='GET EXCEL SHEET', command = download).place(x=180, y=350)
     r.mainloop()
     r.mainloop()
 

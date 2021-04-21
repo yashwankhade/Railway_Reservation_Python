@@ -1,8 +1,8 @@
 import sqlite3
 from tkinter import *
-
 mydb = sqlite3.connect('trains.db')
 c = mydb.cursor()
+
 
 c.execute("""CREATE TABLE IF NOT EXISTS trains_info(
             train_num INT Primary key,
@@ -117,3 +117,5 @@ print(sql1)
 for j in sql1:
       num=j
 print(num)
+
+
