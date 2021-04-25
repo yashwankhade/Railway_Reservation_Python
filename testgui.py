@@ -943,19 +943,15 @@ def admin_main():
         
     # Making buttons
     btn1 = Button(root, text='Show Passengers', command=s_passengers)
-    btn1.place(x=200, y=10)
+    btn1.place(x=100, y=30)
     btn2 = Button(root, text='Show Trains', command=s_trains)
-    btn2.place(x=120, y=40)
+    btn2.place(x=110, y=70)
     btn3 = Button(root, text='Add Trains', command=a_trains)
-    btn3.place(x=110, y=70)
+    btn3.place(x=110, y=110)
     btn4 = Button(root, text='Cancel Trains', command=c_trains)
-    btn4.place(x=110, y=100)
+    btn4.place(x=105, y=150)
     btn5 = Button(root, text='Logout', command=logout)
-    btn5.place(x=120, y=130)
-
-    for widget in root.winfo_children():
-        widget.grid(padx=0, pady=3)
-    root.mainloop()
+    btn5.place(x=120, y=190)
 
 main_page()
 
