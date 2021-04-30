@@ -110,12 +110,5 @@ c.execute("""CREATE TABLE IF NOT EXISTS Passenger_info(
            )
             """)
 
-src='Pune'
-dest ='Mumbai'
-sql1 = "Select count(trains_num) from trains_info where src='Mumbai' and dest='Pune'"
-print(sql1)
-for j in sql1:
-      num=j
-print(num)
 
 

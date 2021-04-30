@@ -1,7 +1,7 @@
 import sqlite3
 import random
 from tkinter import *
-import tkinter
+#import tkinter
 import tkinter as tk
 from tkinter import ttk
 from tkinter.messagebox import showinfo
