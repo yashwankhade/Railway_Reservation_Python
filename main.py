@@ -9,7 +9,7 @@ from tkinter import messagebox
 import ticket
 import pandas as pd
 from pandas import ExcelWriter
-from pandas import ExcelFile
+#from pandas import ExcelFile
 from tkcalendar import DateEntry
 
 conn = sqlite3.connect('trains.db')
