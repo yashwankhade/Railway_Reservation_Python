@@ -20,8 +20,8 @@ def ticket_display(pnr,trainno,p,email,date):
         a= cursor.execute(st)
         for i in a:
             print(i)
-        sender = 'yashswan6@gmail.com'
-        sendpass = '@bcrail$09264'
+        sender = '@gmail.com'
+        sendpass = ''
         
         num = i[0]
         name = i[1]
