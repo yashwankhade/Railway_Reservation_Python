@@ -207,14 +207,14 @@ def book_a_ticket():
         else: 
             pnr = generate_pnr()
             sql= '''Insert Into Passenger_info Values(%d,'%s',%d,'%s','%s',%d)''' % (int(train_num),name,int(age),gender,email,int(pnr))
-            print(sql)
+            #print(sql)
             cursor.execute(sql)
             info = cursor.execute('select * from Passenger_info')
             mydb.commit()
             p=[]
             for i in info:
                 p.insert(0,i)
-            print(p)
+            #print(p)
             ticket.ticket_display(pnr,int(train_num),p,email,date)
     root1 = Tk()
     
@@ -667,16 +667,14 @@ def show_trains():
     # set the position of the window to the center of the screen
     r.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
     
-    k = 1
     b = "select count(*) from trains_info"
     m= cursor.execute(b)
-    for num in m:
-        #print(num)
-        pass
-
+    # for num in m:
+    #     pass
+    n= m.fetchone()
     treev = ttk.Treeview(r, selectmode ='browse')
     
-    Label(r, text=f"Number of Trains : {int(str(num[0]))}").place(x=100,y=50)
+    Label(r, text=f"Number of Trains : {int(str(n[0]))}").place(x=100,y=50)
     
     # Calling pack method w.r.to treeview
     treev.pack(side ='left')
@@ -772,7 +770,7 @@ def add_trains():
         tfare= t_fare.get()
         print("Added")
         st= "insert into trains_info values (%d,'%s','%s','%s','%s','%s',%d)" % (int(tnum),tname,tsrc,tsrct,tdest,tdestt,int(tfare))
-        print(st)
+        #print(st)
         cursor.execute(st)
         mydb.commit()
         messagebox.showinfo('Success','Train record added successfully!')
@@ -864,7 +862,7 @@ def cancel_trains():
             messagebox.showerror('Error','Train number does not exist')
         else:
             st = 'Delete from trains_info where train_num=%d' % int(tno1)
-            print(st)
+            #print(st)
             cursor.execute(st)
             mydb.commit()
             messagebox.showinfo('Success','Train record deleted!')
