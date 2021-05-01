@@ -11,11 +11,8 @@ cursor = mydb.cursor()
 
 
 def ticket_display(pnr,trainno,p,email,date):
-    PNR_NUMB=pnr
-    em=email
-    tn1=trainno
-    p=p
-    d=date
+    #PNR_NUMB=pnr
+    em,tn1,p,d=email,trainno,p,date
     def send_email():
         t=[]
         
